@@ -36,7 +36,7 @@
 						  [class.disabled]="currentPage === 1"
 						  (click)="onPageChange(currentPage - 1)"
 						>
-						  <a class="page-link" href="#">Anterior</a>
+						  <a class="page-link">Anterior</a>
 						</li>
 						<li
 						  class="page-item"
@@ -44,14 +44,14 @@
 						  [class.active]="currentPage === i + 1"
 						  (click)="onPageChange(i + 1)"
 						>
-						  <a class="page-link" href="#">{{ i + 1 }}</a>
+						  <a class="page-link">{{ i + 1 }}</a>
 						</li>
 						<li
 						  class="page-item"
 						  [class.disabled]="currentPage === Math.ceil(filteredAccounts.length / itemsPerPage)"
 						  (click)="onPageChange(currentPage + 1)"
 						>
-						  <a class="page-link" href="#">Siguiente</a>
+						  <a class="page-link">Siguiente</a>
 						</li>
 					  </ul>
 					</nav>
