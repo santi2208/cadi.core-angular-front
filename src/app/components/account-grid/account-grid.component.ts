@@ -1,46 +1,72 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+// account-grid.component.ts
+import { Component, OnInit } from '@angular/core';
 import { AccountService, AccountDto } from '../../services/accounts/account.service';
 
 @Component({
-  selector: 'account-grid',
+  selector: 'app-account-grid',
   templateUrl: './account-grid.component.html',
-  styleUrls: ['./account-grid.component.css'],
+  styleUrls: ['./account-grid.component.css']
 })
 export class AccountGridComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'number', 'name', 'parentAccountId', 'currencyTypeId'];
-  dataSource: MatTableDataSource<AccountDto> = new MatTableDataSource();
+  accounts: AccountDto[] = [];
+  filteredAccounts: AccountDto[] = [];
+  currentPage = 1;
+  itemsPerPage = 5;
+  searchTerm = '';
+  sortColumn: keyof AccountDto = 'id';
+  sortDirection: 'asc' | 'desc' = 'asc';
+  public Math = Math;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
-    this.fetchAccounts();
-  }
-
-  fetchAccounts(): void {
-    this.accountService.getAllAccounts().subscribe({
-      next: (accounts) => {
-        this.dataSource = new MatTableDataSource(accounts);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error: (err) => {
-        console.error('Error al cargar las cuentas:', err);
-      },
+    this.accountService.getAllAccounts().subscribe(data => {
+      this.accounts = data;
+      this.applyFilterAndSort();
     });
   }
 
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilterAndSort(): void {
+    // Filtrar
+    this.filteredAccounts = this.accounts.filter(account =>
+      Object.values(account).some(value =>
+        value?.toString().toLowerCase().includes(this.searchTerm.toLowerCase())
+      )
+    );
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    // Ordenar
+    this.filteredAccounts.sort((a, b) => {
+      const valueA = a[this.sortColumn];
+      const valueB = b[this.sortColumn];
+      if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    // Paginar
+    this.filteredAccounts = this.filteredAccounts.slice(
+      (this.currentPage - 1) * this.itemsPerPage,
+      this.currentPage * this.itemsPerPage
+    );
+  }
+
+  onSearchTermChange(): void {
+    this.currentPage = 1;
+    this.applyFilterAndSort();
+  }
+
+  onSort(column: keyof AccountDto): void {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
     }
+    this.applyFilterAndSort();
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.applyFilterAndSort();
   }
 }

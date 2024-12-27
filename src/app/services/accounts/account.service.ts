@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 export interface AccountDto {
   id: number;
@@ -13,16 +14,20 @@ export interface AccountDto {
 @Injectable({
   providedIn: 'root',
 })
+
 export class AccountService {
-  private baseUrl = 'http://localhost:5000/api/account'; // Cambia la URL base según tu API.
+  private apiUrl = 'http://localhost:5179/api/Account'; 
 
-  constructor(private http: HttpClient) {}
-
-  /**
-   * Obtiene la lista de cuentas desde la API.
-   * @returns Un Observable con los datos de tipo AccountDto[].
-   */
+  constructor(private http: HttpClient) { }
   getAllAccounts(): Observable<AccountDto[]> {
-    return this.http.get<AccountDto[]>(`${this.baseUrl}`);
+    return this.http.get<AccountDto[]>(this.apiUrl)
+      .pipe(
+        catchError(this.handleError) 
+      );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.error('Ocurrió un error:', error);
+    return throwError(() =>Error('Algo salió mal; por favor, intenta nuevamente más tarde.'));
   }
 }
