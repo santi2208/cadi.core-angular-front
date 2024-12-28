@@ -1,9 +1,7 @@
 // account-grid.component.ts
 import { Component, OnInit } from "@angular/core";
-import {
-  AccountService,
-  AccountDto,
-} from "../../services/accounts/account.service";
+import { AccountService } from "../../services/accounts/account.service";
+import { AccountDto } from "app/dtos/accounts-interfaces";
 
 @Component({
   selector: "app-account-grid",
