@@ -2,24 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-
-export interface ParentAccount {
-  id: number;
-  description: string;
-}
-
-export interface CurrencyType {
-  id: number;
-  description: string;
-}
-
-export interface AccountDto {
-  id: number;
-  number: string;
-  name: string;
-  parentAccount?: ParentAccount;
-  currencyType: CurrencyType;
-}
+import { AccountDto } from "app/dtos/accounts-interfaces";
 
 @Injectable({
   providedIn: "root",
