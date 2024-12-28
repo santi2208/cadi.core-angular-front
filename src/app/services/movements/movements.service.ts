@@ -3,35 +3,38 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
-export interface ParentAccount {
+export interface Period {
+  id: number;
+  startDate: Date;
+  endDate: Date;
+  isClosed: boolean;
+}
+
+export interface GenericDescriptor {
   id: number;
   description: string;
 }
 
-export interface CurrencyType {
+export interface MovementDto {
   id: number;
-  description: string;
-}
-
-export interface AccountDto {
-  id: number;
-  number: string;
-  name: string;
-  parentAccount?: ParentAccount;
-  currencyType: CurrencyType;
+  amount: number;
+  createdDate: Date;
+  createdByUser: GenericDescriptor;
+  sourceAccount: GenericDescriptor;
+  targetAccount: GenericDescriptor;
+  period: Period;
 }
 
 @Injectable({
   providedIn: "root",
 })
-export class AccountService {
-  private apiUrl = "http://localhost:5179/api/Account";
-
+export class MovementsService {
+  private apiUrl = "http://localhost:5179/api/Movement";
   constructor(private http: HttpClient) {}
-  getAllAccounts(): Observable<AccountDto[]> {
-    return this.http
-      .get<AccountDto[]>(this.apiUrl)
-      .pipe(catchError(this.handleError));
+  getAllMovements(): Observable<MovementDto[]> {
+    return this.http.get<MovementDto[]>(this.apiUrl).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

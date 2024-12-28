@@ -2,11 +2,20 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header card-header-danger">
+        <div class="card-header card-header-danger mb-4">
           <h4 class="card-title">Cuentas</h4>
           <p class="card-category">
             Listado de todas las cuentas existentes en el sistema
           </p>
+        </div>
+        <div class="col-md-6 mb-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchTermChange()"
+          />
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -67,17 +76,6 @@
           </nav>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Buscar..."
-        [(ngModel)]="searchTerm"
-        (input)="onSearchTermChange()"
-      />
     </div>
   </div>
 </div>

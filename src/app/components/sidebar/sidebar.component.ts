@@ -16,6 +16,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
     { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
     { path: '/account-grid', title: 'Cuentas',  icon:'content_paste', class: '' },
+    { path: '/movement-grid', title: 'Movimientos',  icon:'bubble_chart', class: '' },
+    
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
