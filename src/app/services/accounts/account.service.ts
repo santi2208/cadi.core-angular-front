@@ -3,12 +3,22 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+export interface ParentAccount {
+  id: number;
+  description: string;
+}
+
+export interface CurrencyType {
+  id: number;
+  description: string;
+}
+
 export interface AccountDto {
   id: number;
   number: string;
   name: string;
-  parentAccountId?: number;
-  currencyTypeId: number;
+  parentAccount?: ParentAccount;
+  currencyType: CurrencyType;
 }
 
 @Injectable({

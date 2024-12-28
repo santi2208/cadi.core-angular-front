@@ -24,7 +24,9 @@ export class AccountGridComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountService.getAllAccounts().subscribe((data) => {
+      console.log("---------------getAllAccounts----------------");
       this.accounts = data;
+      console.log(data);
       this.applyFilterAndSort();
     });
   }
@@ -32,29 +34,42 @@ export class AccountGridComponent implements OnInit {
   applyFilterAndSort(): void {
     try {
       // Filtrar
-      this.filteredAccounts = this.accounts.filter((account) =>
-        Object.values(account).some((value) =>
-          value
-            ?.toString()
-            .toLowerCase()
-            .includes(this.searchTerm.toLowerCase())
-        )
+      const searchTermLower = this.searchTerm.toLowerCase();
+      this.filteredAccounts = this.accounts.filter(
+        (account) =>
+          account.number.toLowerCase().includes(searchTermLower) ||
+          account.name.toLowerCase().includes(searchTermLower) ||
+          account.parentAccount?.description
+            ?.toLowerCase()
+            .includes(searchTermLower) ||
+          account.currencyType?.description
+            ?.toLowerCase()
+            .includes(searchTermLower)
       );
 
       // Ordenar
       this.filteredAccounts.sort((a, b) => {
-        const valueA = a[this.sortColumn];
-        const valueB = b[this.sortColumn];
+        const valueA =
+          this.sortColumn === "parentAccount" ||
+          this.sortColumn === "currencyType"
+            ? (a[this.sortColumn]?.description || "").toLowerCase()
+            : (a[this.sortColumn] || "").toString().toLowerCase();
+
+        const valueB =
+          this.sortColumn === "parentAccount" ||
+          this.sortColumn === "currencyType"
+            ? (b[this.sortColumn]?.description || "").toLowerCase()
+            : (b[this.sortColumn] || "").toString().toLowerCase();
+
         if (valueA < valueB) return this.sortDirection === "asc" ? -1 : 1;
         if (valueA > valueB) return this.sortDirection === "asc" ? 1 : -1;
         return 0;
       });
 
       // Paginar
-      this.filteredAccounts = this.filteredAccounts.slice(
-        (this.currentPage - 1) * this.itemsPerPage,
-        this.currentPage * this.itemsPerPage
-      );
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = this.currentPage * this.itemsPerPage;
+      this.filteredAccounts = this.filteredAccounts.slice(start, end);
     } catch (error) {
       console.log("----------applyFilterAndSort-------------");
       console.log(error);
