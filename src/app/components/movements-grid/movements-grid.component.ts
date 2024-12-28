@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { MovementsService, MovementDto } from "../../services/movements/movements.service";
+import { MovementsService } from "../../services/movements/movements.service";
+import {MovementDto } from "../../dtos/movements.interfaces";
+
 
 @Component({
   selector: "movement-grid",
@@ -19,7 +21,7 @@ export class MovementsGridComponent implements OnInit {
   constructor(private movementsService: MovementsService) {}
 
   ngOnInit(): void {
-    this.movementsService.getAllMovements().subscribe((data) => {
+    this.movementsService.getAll().subscribe((data) => {
       this.movements = data;
       this.applyFilterAndSort();
     });

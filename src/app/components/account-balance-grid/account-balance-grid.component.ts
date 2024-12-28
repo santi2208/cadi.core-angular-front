@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { AccountBalanceDto } from "app/dtos/accounts-interfaces";
+import { AccountBalanceDto } from "app/dtos/accounts.interfaces";
 import { AccountBalanceService } from "app/services/account-balance/account-balance.service";
 
 @Component({

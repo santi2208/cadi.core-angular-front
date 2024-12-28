@@ -1,26 +1,17 @@
-export interface GenericDescriptor {
-  id: number;
-  description: string;
-}
-
-export interface CurrencyType {
-  id: number;
-  description: string;
-}
-
+import { GenericDescriptor } from './common.interfaces'
 export interface AccountDto {
   id: number;
   number: string;
   name: string;
   parentAccount?: GenericDescriptor;
-  currencyType: CurrencyType;
+  currencyType: GenericDescriptor;
 }
 
 export interface AccountBalanceDto {
   id: number;
   account: AccountDto;
   balance: number;
-  currencyType: CurrencyType;
+  currencyType: GenericDescriptor;
   updatedDate: Date;
   updatedByUser: GenericDescriptor;
 }
