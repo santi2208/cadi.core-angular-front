@@ -1,7 +1,7 @@
 // account-grid.component.ts
 import { Component, OnInit } from "@angular/core";
 import { AccountService } from "../../services/accounts/account.service";
-import { AccountDto } from "app/dtos/accounts-interfaces";
+import { AccountDto } from "app/dtos/accounts.interfaces";
 
 @Component({
   selector: "app-account-grid",
@@ -21,7 +21,7 @@ export class AccountGridComponent implements OnInit {
   constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
-    this.accountService.getAllAccounts().subscribe((data) => {
+    this.accountService.getAll().subscribe((data) => {
       this.accounts = data;
       this.applyFilterAndSort();
     });
