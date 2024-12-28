@@ -7,6 +7,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AccountGridComponent } from './account-grid/account-grid.component';
+import { MovementsGridComponent } from './movements-grid/movements-grid.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AccountGridComponent } from './account-grid/account-grid.component';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    AccountGridComponent
+    AccountGridComponent,
+    MovementsGridComponent
   ],
   exports: [
     FooterComponent,
