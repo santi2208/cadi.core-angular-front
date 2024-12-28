@@ -20,8 +20,6 @@ export class MovementsGridComponent implements OnInit {
 
   ngOnInit(): void {
     this.movementsService.getAllMovements().subscribe((data) => {
-      console.log("-----------movement-data-------------");
-      console.log(data);
       this.movements = data;
       this.applyFilterAndSort();
     });

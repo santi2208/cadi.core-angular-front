@@ -24,9 +24,7 @@ export class AccountGridComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountService.getAllAccounts().subscribe((data) => {
-      console.log("---------------getAllAccounts----------------");
       this.accounts = data;
-      console.log(data);
       this.applyFilterAndSort();
     });
   }
