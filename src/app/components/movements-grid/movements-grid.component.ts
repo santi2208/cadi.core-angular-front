@@ -47,6 +47,12 @@ export class MovementsGridComponent implements OnInit {
     // Ordenar
     this.filteredMovements.sort((a, b) => {
       const getColumnValue = (movement: MovementDto): string => {
+        if (this.sortColumn === "amount") {
+          return movement.amount.toString().toLowerCase();
+        }
+        if (this.sortColumn === "createdDate") {
+          return movement.createdDate.toString().toLowerCase();
+        }
         if (this.sortColumn === "createdByUser") {
           return movement.createdByUser.description.toLowerCase();
         }

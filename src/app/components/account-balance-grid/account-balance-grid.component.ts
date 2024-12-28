@@ -32,28 +32,57 @@ export class AccountBalanceGridComponent implements OnInit {
       this.filteredAccounts = this.accountBalances.filter(
         (accountBalance) =>
           accountBalance.account.name.toLowerCase().includes(searchTermLower) ||
-          accountBalance.account.number.toLowerCase().includes(searchTermLower) ||
-          accountBalance.account.currencyType.description.toLowerCase().includes(searchTermLower) ||
-          accountBalance.updatedByUser.description.toLowerCase().includes(searchTermLower) ||
-          accountBalance.balance.toString().toLowerCase().includes(searchTermLower)
+          accountBalance.account.number
+            .toLowerCase()
+            .includes(searchTermLower) ||
+          accountBalance.account.currencyType.description
+            .toLowerCase()
+            .includes(searchTermLower) ||
+          accountBalance.updatedByUser.description
+            .toLowerCase()
+            .includes(searchTermLower) ||
+          accountBalance.balance
+            .toString()
+            .toLowerCase()
+            .includes(searchTermLower)
       );
 
       // Ordenar
       this.filteredAccounts.sort((a, b) => {
-        const valueA =
-          this.sortColumn === "currencyType" || 
-          this.sortColumn === "updatedByUser" 
-            ? (a[this.sortColumn]?.description || "").toLowerCase()
-            : (a[this.sortColumn] || "").toString().toLowerCase();
+        let valueA: string | number | Date | undefined;
+        let valueB: string | number | Date | undefined;
 
-        const valueB =
-          this.sortColumn === "updatedByUser" ||
-          this.sortColumn === "currencyType"
-            ? (b[this.sortColumn]?.description || "").toLowerCase()
-            : (b[this.sortColumn] || "").toString().toLowerCase();
+        switch (this.sortColumn) {
+          case "account":
+            valueA = a.account.name.toLowerCase();
+            valueB = b.account.name.toLowerCase();
+            break;
+          // case "accountNumber":
+          //   valueA = a.account.number.toLowerCase();
+          //   valueB = b.account.number.toLowerCase();
+          //   break;
+          case "balance":
+            valueA = a.balance;
+            valueB = b.balance;
+            break;
+          case "currencyType":
+            valueA = a.currencyType.description.toLowerCase();
+            valueB = b.currencyType.description.toLowerCase();
+            break;
+          case "updatedDate":
+            valueA = a.updatedDate;
+            valueB = b.updatedDate;
+            break;
+          case "updatedByUser":
+            valueA = a.updatedByUser.description.toLowerCase();
+            valueB = b.updatedByUser.description.toLowerCase();
+            break;
+          default:
+            return 0;
+        }
 
-        if (valueA < valueB) return this.sortDirection === "asc" ? -1 : 1;
-        if (valueA > valueB) return this.sortDirection === "asc" ? 1 : -1;
+        if (valueA! < valueB!) return this.sortDirection === "asc" ? -1 : 1;
+        if (valueA! > valueB!) return this.sortDirection === "asc" ? 1 : -1;
         return 0;
       });
 
@@ -69,25 +98,25 @@ export class AccountBalanceGridComponent implements OnInit {
   }
 
   onSearchTermChange(): void {
-      this.currentPage = 1;
-      this.applyFilterAndSort();
+    this.currentPage = 1;
+    this.applyFilterAndSort();
+  }
+
+  onSort(column: keyof AccountBalanceDto): void {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === "asc" ? "desc" : "asc";
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = "asc";
     }
-  
-    onSort(column: keyof AccountBalanceDto): void {
-      if (this.sortColumn === column) {
-        this.sortDirection = this.sortDirection === "asc" ? "desc" : "asc";
-      } else {
-        this.sortColumn = column;
-        this.sortDirection = "asc";
-      }
-      this.applyFilterAndSort();
-    }
-  
-    onPageChange(page: number): void {
-      console.log("-----Page-----");
-      console.log(page);
-      console.log("----------");
-      this.currentPage = page;
-      this.applyFilterAndSort();
-    }
+    this.applyFilterAndSort();
+  }
+
+  onPageChange(page: number): void {
+    console.log("-----Page-----");
+    console.log(page);
+    console.log("----------");
+    this.currentPage = page;
+    this.applyFilterAndSort();
+  }
 }
