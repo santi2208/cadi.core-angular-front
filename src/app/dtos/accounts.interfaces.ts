@@ -1,4 +1,4 @@
-import { GenericDescriptor } from './common.interfaces'
+import { GenericDescriptor, Period } from "./common.interfaces";
 export interface AccountDto {
   id: number;
   number: string;
@@ -14,4 +14,17 @@ export interface AccountBalanceDto {
   currencyType: GenericDescriptor;
   updatedDate: Date;
   updatedByUser: GenericDescriptor;
+}
+
+export interface AccountPeriodBalanceDto {
+  id: number;
+  account: AccountDto;
+  period: Period;
+  currencyType: GenericDescriptor;
+  initialBalance: number;
+  finalBalance: number;
+  totalDebits  : number;
+  totalCredits  : number;
+  closedDate: Date;
+  closedBy: GenericDescriptor;
 }

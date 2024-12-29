@@ -8,6 +8,10 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
+    { path: '/account-grid', title: 'Cuentas',  icon:'content_paste', class: '' },
+    { path: '/movement-grid', title: 'Movimientos',  icon:'bubble_chart', class: '' },
+    { path: '/account-balance-grid', title: 'Balances Generales',  icon:'leaderboard', class: '' },
+    { path: '/account-period-balance-grid', title: 'Balances Por Períodos',  icon:'timeline', class: '' },  
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
     { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
@@ -15,9 +19,6 @@ export const ROUTES: RouteInfo[] = [
     { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
     { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/account-grid', title: 'Cuentas',  icon:'content_paste', class: '' },
-    { path: '/movement-grid', title: 'Movimientos',  icon:'bubble_chart', class: '' },
-    { path: '/account-balance-grid', title: 'Balances Generales',  icon:'leaderboard', class: '' },
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 

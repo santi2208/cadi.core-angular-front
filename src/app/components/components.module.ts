@@ -9,6 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { AccountGridComponent } from './account-grid/account-grid.component';
 import { MovementsGridComponent } from './movements-grid/movements-grid.component';
 import { AccountBalanceGridComponent } from './account-balance-grid/account-balance-grid.component';
+import { AccountPeriodBalanceGridComponent } from './account-period-balance-grid/account-period-balance-grid.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { AccountBalanceGridComponent } from './account-balance-grid/account-bala
     SidebarComponent,
     AccountGridComponent,
     MovementsGridComponent,
-    AccountBalanceGridComponent
+    AccountBalanceGridComponent,
+    AccountPeriodBalanceGridComponent
   ],
   exports: [
     FooterComponent,

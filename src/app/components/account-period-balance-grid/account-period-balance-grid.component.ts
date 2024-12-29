@@ -1,30 +1,31 @@
 import { Component, OnInit } from "@angular/core";
-import { AccountBalanceDto } from "app/dtos/accounts.interfaces";
-import { AccountBalanceService } from "app/services/account-balance/account-balance.service";
+import { AccountPeriodBalanceService } from "app/services/account-period-balance/account-period-balance.service";
+import { AccountPeriodBalanceDto } from "app/dtos/accounts.interfaces";
 
 @Component({
-  selector: "account-balance-grid",
-  templateUrl: "./account-balance-grid.component.html",
-  styleUrls: ["./account-balance-grid.component.css"],
+  selector: "account-period-balance-grid",
+  templateUrl: "./account-period-balance-grid.component.html",
+  styleUrls: ["./account-period-balance-grid.component.css"],
 })
-export class AccountBalanceGridComponent implements OnInit {
-  accountBalances: AccountBalanceDto[] = [];
-  filteredAccounts: AccountBalanceDto[] = [];
+export class AccountPeriodBalanceGridComponent implements OnInit {
+  accountBalances: AccountPeriodBalanceDto[] = [];
+  filteredAccounts: AccountPeriodBalanceDto[] = [];
   currentPage = 1;
   itemsPerPage = 10;
   searchTerm = "";
-  sortColumn: keyof AccountBalanceDto = "id";
+  sortColumn: keyof AccountPeriodBalanceDto = "id";
   sortDirection: "asc" | "desc" = "asc";
   public Math = Math;
-  constructor(private accountBalanceService: AccountBalanceService) {}
+  constructor(
+    private accountPeriodBalanceService: AccountPeriodBalanceService
+  ) {}
 
   ngOnInit(): void {
-    this.accountBalanceService.getAll().subscribe((data) => {
+    this.accountPeriodBalanceService.getAll().subscribe((data) => {
       this.accountBalances = data;
       this.applyFilterAndSort();
     });
   }
-
   applyFilterAndSort(): void {
     try {
       // Filtrar
@@ -38,10 +39,15 @@ export class AccountBalanceGridComponent implements OnInit {
           accountBalance.account.currencyType.description
             .toLowerCase()
             .includes(searchTermLower) ||
-          accountBalance.updatedByUser.description
+          accountBalance.totalDebits
+            .toString()
             .toLowerCase()
             .includes(searchTermLower) ||
-          accountBalance.balance
+          accountBalance.totalCredits
+            .toString()
+            .toLowerCase()
+            .includes(searchTermLower) ||
+          accountBalance.period.startDate
             .toString()
             .toLowerCase()
             .includes(searchTermLower)
@@ -57,21 +63,29 @@ export class AccountBalanceGridComponent implements OnInit {
             valueA = a.account.name.toLowerCase();
             valueB = b.account.name.toLowerCase();
             break;
-          case "balance":
-            valueA = a.balance;
-            valueB = b.balance;
+          case "initialBalance":
+            valueA = a.initialBalance;
+            valueB = b.initialBalance;
+            break;
+          case "finalBalance":
+            valueA = a.finalBalance;
+            valueB = b.finalBalance;
+            break;
+          case "period":
+            valueA = a.period.startDate.toString().toLowerCase();
+            valueB = b.period.startDate.toString().toLowerCase();
             break;
           case "currencyType":
             valueA = a.currencyType.description.toLowerCase();
             valueB = b.currencyType.description.toLowerCase();
             break;
-          case "updatedDate":
-            valueA = a.updatedDate;
-            valueB = b.updatedDate;
+          case "closedDate":
+            valueA = a.closedDate;
+            valueB = b.closedDate;
             break;
-          case "updatedByUser":
-            valueA = a.updatedByUser.description.toLowerCase();
-            valueB = b.updatedByUser.description.toLowerCase();
+          case "closedBy":
+            valueA = a.closedBy.description.toLowerCase();
+            valueB = b.closedBy.description.toLowerCase();
             break;
           default:
             return 0;
@@ -92,13 +106,12 @@ export class AccountBalanceGridComponent implements OnInit {
       console.log("-----------------------------------------");
     }
   }
-
   onSearchTermChange(): void {
     this.currentPage = 1;
     this.applyFilterAndSort();
   }
 
-  onSort(column: keyof AccountBalanceDto): void {
+  onSort(column: keyof AccountPeriodBalanceDto): void {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === "asc" ? "desc" : "asc";
     } else {
@@ -109,9 +122,6 @@ export class AccountBalanceGridComponent implements OnInit {
   }
 
   onPageChange(page: number): void {
-    console.log("-----Page-----");
-    console.log(page);
-    console.log("----------");
     this.currentPage = page;
     this.applyFilterAndSort();
   }
