@@ -11,6 +11,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { AccountGridComponent } from '../../components/account-grid/account-grid.component';
 import { MovementsGridComponent } from '../../components/movements-grid/movements-grid.component';
 import { AccountBalanceGridComponent } from '../../components/account-balance-grid/account-balance-grid.component';
+import { AccountPeriodBalanceGridComponent } from '../../components/account-period-balance-grid/account-period-balance-grid.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -24,4 +25,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'account-grid',   component: AccountGridComponent },
     { path: 'movement-grid', component: MovementsGridComponent },
     { path: 'account-balance-grid', component: AccountBalanceGridComponent },
+    { path: 'account-period-balance-grid', component: AccountPeriodBalanceGridComponent },
 ];

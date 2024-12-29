@@ -1,0 +1,88 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger mb-4">
+          <h4 class="card-title">Balances</h4>
+          <p class="card-category">Listado de balances por cuentas</p>
+        </div>
+        <div class="col-md-6 mb-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchTermChange()"
+          />
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th (click)="onSort('account')">Cuenta</th>
+                  <th (click)="onSort('account')">Cuenta Nro</th>
+                  <th (click)="onSort('period')">Período</th>
+                  <th (click)="onSort('initialBalance')">Balance Inicial</th>
+                  <th (click)="onSort('finalBalance')">Balance Final</th>
+                  <th (click)="onSort('currencyType')">Tipo de Moneda</th>
+                  <th (click)="onSort('closedDate')">Fecha de cierre</th>
+                  <th (click)="onSort('closedBy')">Cerrado por</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let accountBalance of filteredAccounts">
+                  <td>{{ accountBalance.account.name }}</td>
+                  <td>{{ accountBalance.account.number }}</td>
+                  <td>
+                    {{ accountBalance.period.startDate | date }} -
+                    {{ accountBalance.period.endDate | date }}
+                  </td>
+                  <td>{{ accountBalance.initialBalance }}</td>
+                  <td>{{ accountBalance.finalBalance }}</td>
+                  <td>{{ accountBalance.currencyType.description }}</td>
+                  <td>{{ accountBalance.closedDate ?? "-" }}</td>
+                  <td>{{ accountBalance.closedBy?.description || "N/A" }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav>
+            <ul class="pagination">
+              <li
+                class="page-item"
+                [class.disabled]="currentPage === 1"
+                (click)="onPageChange(currentPage - 1)"
+              >
+                <a class="page-link">Anterior</a>
+              </li>
+              <li
+                class="page-item"
+                *ngFor="
+                  let page of [].constructor(
+                    Math.ceil(filteredAccounts.length / itemsPerPage)
+                  );
+                  let i = index
+                "
+                [class.active]="currentPage === i + 1"
+                (click)="onPageChange(i + 1)"
+              >
+                <a class="page-link">{{ i + 1 }}</a>
+              </li>
+              <li
+                class="page-item"
+                [class.disabled]="
+                  currentPage ===
+                  Math.ceil(filteredAccounts.length / itemsPerPage)
+                "
+                (click)="onPageChange(currentPage + 1)"
+              >
+                <a class="page-link">Siguiente</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
