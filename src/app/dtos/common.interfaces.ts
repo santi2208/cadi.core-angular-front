@@ -1,4 +1,4 @@
 export interface GenericDescriptor {
-    id: number;
-    description: string;
-  }
+  id: number;
+  description: string;
+}
