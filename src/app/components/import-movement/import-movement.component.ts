@@ -12,8 +12,8 @@ export class ImportMovementComponent {
   fileName: string = '';
   period: Date | null = null;
 
-  constructor(private fileUploadService: FileUploadService) {}
-  // , private snackBar: MatSnackBar
+  constructor(private fileUploadService: FileUploadService, private snackBar: MatSnackBar) {}
+  
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -28,10 +28,11 @@ export class ImportMovementComponent {
       const formattedPeriod = this.period.toString();
       this.fileUploadService.uploadFile(this.file, formattedPeriod).subscribe({
         next: (response) => {
-          // this.snackBar.open(response.message, 'Cerrar', { duration: 3000 });
+          this.snackBar.open(response.message, 'Cerrar', { duration: 3000 });
         },
-        error: () => {
-          // this.snackBar.open('Error al subir el archivo.', 'Cerrar', { duration: 3000 });
+        error: (response) => {
+          console.log(response);
+          this.snackBar.open(`Error al subir el archivo:${response.error.message}`, 'Cerrar', { duration: 3000 });
         }
       });
     }
