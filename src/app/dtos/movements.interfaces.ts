@@ -10,3 +10,17 @@ export interface MovementDto {
   targetAccount: AccountDto;
   period: Period;
 }
+export interface MovementLineWithStatus {
+  id : number;
+  date: Date;
+  period: string;
+  sourceAccountNumber: string;
+  targetAccountNumber: string;
+  currency: string;
+  amount: number;
+  details: string;
+  lineNumber: number;
+  importBatchesMovementsId: number;
+  processingDate: Date;
+  errors: string;
+}
