@@ -10,6 +10,7 @@ import { AccountGridComponent } from './account-grid/account-grid.component';
 import { MovementsGridComponent } from './movements-grid/movements-grid.component';
 import { AccountBalanceGridComponent } from './account-balance-grid/account-balance-grid.component';
 import { AccountPeriodBalanceGridComponent } from './account-period-balance-grid/account-period-balance-grid.component';
+import { ImportMovementComponent } from './import-movement/import-movement.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { AccountPeriodBalanceGridComponent } from './account-period-balance-grid
     AccountGridComponent,
     MovementsGridComponent,
     AccountBalanceGridComponent,
-    AccountPeriodBalanceGridComponent
+    AccountPeriodBalanceGridComponent,
+    ImportMovementComponent
   ],
   exports: [
     FooterComponent,

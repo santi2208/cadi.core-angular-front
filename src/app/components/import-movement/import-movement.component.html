@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h4>Subir archivo CSV</h4>
+      </div>
+      <div class="card-body col-md-6 mb-4">
+        <form (ngSubmit)="onSubmit()" #fileForm="ngForm">
+          <div class="form-group col-md-6 mb-4">
+            <label for="period">Periodo</label>
+            <input
+              type="month"
+              class="form-control"
+              id="period"
+              name="period"
+              [(ngModel)]="period"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="fileInput" class="bmd-label-static">Subir archivo CSV</label>
+            <div class="custom-file">
+              <input
+                type="file"
+                class="custom-file-input"
+                id="fileInput"
+                (change)="onFileSelected($event)"
+                accept=".csv"
+              />
+              <label class="custom-file-label" for="fileInput">Seleccionar archivo</label>
+            </div>
+          </div>          
+
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!file || !period"
+          >
+            Subir archivo
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
