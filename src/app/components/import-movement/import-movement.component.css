@@ -1,0 +1,14 @@
+.upload-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+  }
+  
+  .file-name {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
