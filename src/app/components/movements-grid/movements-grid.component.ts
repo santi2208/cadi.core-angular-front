@@ -14,7 +14,7 @@ export class MovementsGridComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 10;
   searchTerm = "";
-  sortColumn: keyof MovementDto | "createdByUser" | "sourceAccount" | "targetAccount" | "period" = "id";
+  sortColumn: keyof MovementDto | "createdByUser" | "sourceAccount" | "sourceAccountNumber" | "targetAccount" | "targetAccountNumber"| "period" = "id";
   sortDirection: "asc" | "desc" = "asc";
   public Math = Math;
   
@@ -36,8 +36,10 @@ export class MovementsGridComponent implements OnInit {
         movement.id.toString(),
         movement.amount.toString(),
         movement.createdByUser.description,
-        movement.sourceAccount.description,
-        movement.targetAccount.description,
+        movement.sourceAccount.name,
+        movement.sourceAccount.number,
+        movement.targetAccount.name,
+        movement.targetAccount.number,
         `${movement.period.startDate} - ${movement.period.endDate}`,
       ]
         .map((value) => value.toLowerCase())
@@ -57,10 +59,16 @@ export class MovementsGridComponent implements OnInit {
           return movement.createdByUser.description.toLowerCase();
         }
         if (this.sortColumn === "sourceAccount") {
-          return movement.sourceAccount.description.toLowerCase();
+          return movement.sourceAccount.name.toLowerCase();
+        }
+        if (this.sortColumn === "sourceAccountNumber") {
+          return movement.sourceAccount.number.toLowerCase();
         }
         if (this.sortColumn === "targetAccount") {
-          return movement.targetAccount.description.toLowerCase();
+          return movement.targetAccount.name.toLowerCase();
+        }
+        if (this.sortColumn === "targetAccountNumber") {
+          return movement.targetAccount.number.toLowerCase();
         }
         if (this.sortColumn === "period") {
           return movement.period.startDate.toString().toLowerCase();
@@ -87,7 +95,7 @@ export class MovementsGridComponent implements OnInit {
     this.applyFilterAndSort();
   }
 
-  onSort(column: keyof MovementDto | "createdByUser" | "sourceAccount" | "targetAccount" | "period"): void {
+  onSort(column: keyof MovementDto | "createdByUser" | "sourceAccount" | "sourceAccountNumber" | "targetAccount" | "targetAccountNumber" | "period"): void {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === "asc" ? "desc" : "asc";
     } else {

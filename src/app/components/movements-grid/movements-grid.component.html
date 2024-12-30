@@ -28,7 +28,9 @@
                     <th (click)="onSort('createdDate')">Fecha</th>
                     <th (click)="onSort('createdByUser')">Creado por</th>
                     <th (click)="onSort('sourceAccount')">Cuenta Origen</th>
+                    <th (click)="onSort('sourceAccountNumber')">Numero</th>
                     <th (click)="onSort('targetAccount')">Cuenta Destino</th>
+                    <th (click)="onSort('targetAccount')">Numero</th>
                     <th (click)="onSort('period')">Período</th>
                   </tr>
                 </thead>
@@ -38,8 +40,10 @@
                     <td>{{ movement.amount | currency }}</td>
                     <td>{{ movement.createdDate | date }}</td>
                     <td>{{ movement.createdByUser.description }}</td>
-                    <td>{{ movement.sourceAccount.description }}</td>
-                    <td>{{ movement.targetAccount.description }}</td>
+                    <td>{{ movement.sourceAccount.name }}</td>
+                    <td>{{ movement.sourceAccount.number }}</td>
+                    <td>{{ movement.targetAccount.name }}</td>
+                    <td>{{ movement.targetAccount.number }}</td>
                     <td>
                     {{ movement.period.startDate | date }} - {{ movement.period.endDate | date }}
                     </td>
