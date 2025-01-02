@@ -8,11 +8,12 @@ import { MovementLineWithStatus } from 'app/dtos/movements.interfaces';
   providedIn: 'root'
 })
 export class ImportLinesServiceService {
-  private apiUrl = `http://localhost:5179/api/Batch/{batchId}}/lines`;
+  
   constructor(private http: HttpClient) { }
   getAllByBatchId(batchId: number): Observable<MovementLineWithStatus[]> {
+      let apiUrl = `http://localhost:5179/api/Batch/${batchId}/lines`;
       return this.http
-        .get<MovementLineWithStatus[]>(this.apiUrl)
+        .get<MovementLineWithStatus[]>(apiUrl)
         .pipe(catchError(this.handleError));
     }
   
