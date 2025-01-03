@@ -1,0 +1,20 @@
+.btn-pill {
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-pill.btn-success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-pill.btn-success:hover {
+    background-color: #218838;
+  }
+  
