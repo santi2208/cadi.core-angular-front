@@ -8,7 +8,7 @@ import * as Chartist from "chartist";
   styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private batchService: BatchService) {}
+  constructor() {}
   startAnimationForLineChart(chart) {
     let seq: any, delays: any, durations: any;
     seq = 0;
@@ -69,16 +69,9 @@ export class DashboardComponent implements OnInit {
 
     seq2 = 0;
   }
-
-  approve(): void {
-    this.batchService.approve(5047).subscribe((data) => {
-      console.log(data);
-    });
-  }
-
+  
   ngOnInit() {
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-    this.approve();
     const dataDailySalesChart: any = {
       labels: ["M", "T", "W", "T", "F", "S", "S"],
       series: [[12, 17, 7, 17, 23, 18, 38]],
