@@ -52,4 +52,9 @@
       <import-lines [batchId]="selectedBatchId"></import-lines>
     </div>
   </div>
+  <div class="row"  *ngIf="selectedBatchId != null">
+    <div class="card">
+      <approve-batch-button [batchId]="selectedBatchId"></approve-batch-button>
+    </div>
+  </div>
 </div>
