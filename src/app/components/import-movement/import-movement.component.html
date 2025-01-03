@@ -19,7 +19,9 @@
           </div>
 
           <div class="form-group">
-            <label for="fileInput" class="bmd-label-static">Subir archivo CSV</label>
+            <label for="fileInput" class="bmd-label-static"
+              >Subir archivo CSV</label
+            >
             <div class="custom-file">
               <input
                 type="file"
@@ -28,9 +30,11 @@
                 (change)="onFileSelected($event)"
                 accept=".csv"
               />
-              <label class="custom-file-label" for="fileInput">Seleccionar archivo</label>
+              <label class="custom-file-label" for="fileInput"
+                >Seleccionar archivo</label
+              >
             </div>
-          </div>          
+          </div>
 
           <button
             type="submit"
@@ -43,7 +47,9 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <import-lines></import-lines>
+  <div class="row" *ngIf="selectedBatchId != null">
+    <div class="card">
+      <import-lines [batchId]="selectedBatchId"></import-lines>
+    </div>
   </div>
 </div>

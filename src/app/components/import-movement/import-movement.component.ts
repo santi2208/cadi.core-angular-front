@@ -11,6 +11,7 @@ export class ImportMovementComponent {
   file: File | null = null;
   fileName: string = "";
   period: Date | null = null;
+  selectedBatchId: number;
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -31,6 +32,7 @@ export class ImportMovementComponent {
       const formattedPeriod = this.period.toString();
       this.fileUploadService.uploadFile(this.file, formattedPeriod).subscribe({
         next: (response) => {
+          this.selectedBatchId = response.batchId;
           this.snackBar.open(response.message, "Cerrar", { duration: 3000 });
         },
         error: (response) => {

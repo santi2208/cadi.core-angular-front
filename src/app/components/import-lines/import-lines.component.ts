@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ImportLinesServiceService } from "../../services/import-lines/import-lines-service.service";
 import { MovementLineWithStatus } from "app/dtos/movements.interfaces";
 
@@ -8,6 +8,7 @@ import { MovementLineWithStatus } from "app/dtos/movements.interfaces";
   styleUrls: ["./import-lines.component.css"],
 })
 export class ImportLinesComponent implements OnInit {
+  @Input() batchId!: number;
   lines: MovementLineWithStatus[] = [];
   filteredLines: MovementLineWithStatus[] = [];
   currentPage = 1;
@@ -22,14 +23,24 @@ export class ImportLinesComponent implements OnInit {
   constructor(private importLinesServiceService: ImportLinesServiceService) {}
 
   ngOnInit(): void {
-    let batchId = 5037;
-    this.importLinesServiceService
-      .getAllByBatchId(batchId)
-      .subscribe((data) => {
-        this.lines = data;
-        this.applyFilterAndSort();
-      });
+    this.loadData();
   }
+
+  ngOnChanges(): void {
+    this.loadData(); // Re-cargar los datos si el batchId cambia dinámicamente
+  }
+
+  private loadData(): void {
+    if (this.batchId) {
+      this.importLinesServiceService
+        .getAllByBatchId(this.batchId)
+        .subscribe((data) => {
+          this.lines = data;
+          this.applyFilterAndSort();
+        });
+    }
+  }
+
   applyFilterAndSort(): void {
     try {
       // Filtrar
