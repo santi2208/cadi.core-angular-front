@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { ImportLinesServiceService } from "../../services/import-lines/import-lines-service.service";
 import { MovementLineWithStatus } from "app/dtos/movements.interfaces";
 
@@ -19,7 +19,8 @@ export class ImportLinesComponent implements OnInit {
   showErrorsOnly: boolean = false;
 
   public Math = Math;
-
+  
+  @Output() hasErrors = new EventEmitter<boolean>();
   constructor(private importLinesServiceService: ImportLinesServiceService) {}
 
   ngOnInit(): void {
@@ -36,6 +37,8 @@ export class ImportLinesComponent implements OnInit {
         .getAllByBatchId(this.batchId)
         .subscribe((data) => {
           this.lines = data;
+          const hasErrors = this.lines.some(e => e.errors !== null || e.errors !== "")
+          this.hasErrors.emit(hasErrors);
           this.applyFilterAndSort();
         });
     }

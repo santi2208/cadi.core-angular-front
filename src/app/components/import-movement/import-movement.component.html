@@ -49,11 +49,17 @@
   </div>
   <div class="row" *ngIf="selectedBatchId != null">
     <div class="card">
-      <import-lines [batchId]="selectedBatchId"></import-lines>
+      <import-lines 
+      [batchId]="selectedBatchId"
+      (hasErrors)="onImportLinesErrors($event)"
+      ></import-lines>
     </div>
   </div>
   <div class="row" *ngIf="selectedBatchId != null">
-    <div class="card">
+    <div class="card" *ngIf="linesWithErrors === true">
+      <p> No se puede aprobar el lote porque contiene errores</p>
+    </div>
+    <div class="card" *ngIf="linesWithErrors === false">
       <approve-batch-button
         [batchId]="selectedBatchId"
         (approved)="onApproved($event)"
@@ -66,12 +72,6 @@
         (movementsGenerated)="onMovementsCreated($event)"
       >
       </generate-movements-button>
-    </div>
-    <div *ngIf="approvalStatus === true" class="alert alert-success mt-3">
-      Batch approved successfully!
-    </div>
-    <div *ngIf="approvalStatus === false" class="alert alert-danger mt-3">
-      Failed to approve the batch.
     </div>
   </div>
 </div>

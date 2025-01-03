@@ -14,6 +14,7 @@ export class ImportMovementComponent {
   selectedBatchId: number;
   approvalStatus: boolean | null = null; // Variable para rastrear el estado de aprobación
   movementsCreated: boolean | null = null; // Variable para rastrear el estado de aprobación
+  linesWithErrors: boolean = false; // Variable para deshabilitar el botón
   constructor(
     private fileUploadService: FileUploadService,
     private snackBar: MatSnackBar
@@ -56,5 +57,11 @@ export class ImportMovementComponent {
   onMovementsCreated(status: boolean): void {
     this.movementsCreated = status; // Registra el estado de aprobación
     console.log('Movements created:', status);
+  }
+
+  onImportLinesErrors(hasError: boolean): void {
+    this.linesWithErrors = hasError;
+    console.log("this.linesWithErrors");
+    console.log(this.linesWithErrors);
   }
 }
