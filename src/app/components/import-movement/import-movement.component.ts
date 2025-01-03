@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
-import { FileUploadService } from '../../services/file-upload/file-upload.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Component } from "@angular/core";
+import { FileUploadService } from "../../services/file-upload/file-upload.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ImportLinesComponent } from "../import-lines/import-lines.component";
 @Component({
-  selector: 'import-movement',
-  templateUrl: './import-movement.component.html',
-  styleUrls: ['./import-movement.component.css']
+  selector: "import-movement",
+  templateUrl: "./import-movement.component.html",
+  styleUrls: ["./import-movement.component.css"],
 })
 export class ImportMovementComponent {
   file: File | null = null;
-  fileName: string = '';
+  fileName: string = "";
   period: Date | null = null;
 
-  constructor(private fileUploadService: FileUploadService, private snackBar: MatSnackBar) {}
-  
+  constructor(
+    private fileUploadService: FileUploadService,
+    private snackBar: MatSnackBar
+  ) {}
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -28,12 +31,16 @@ export class ImportMovementComponent {
       const formattedPeriod = this.period.toString();
       this.fileUploadService.uploadFile(this.file, formattedPeriod).subscribe({
         next: (response) => {
-          this.snackBar.open(response.message, 'Cerrar', { duration: 3000 });
+          this.snackBar.open(response.message, "Cerrar", { duration: 3000 });
         },
         error: (response) => {
           console.log(response);
-          this.snackBar.open(`Error al subir el archivo:${response.error.message}`, 'Cerrar', { duration: 3000 });
-        }
+          this.snackBar.open(
+            `Error al subir el archivo:${response.error.message}`,
+            "Cerrar",
+            { duration: 3000 }
+          );
+        },
       });
     }
   }
