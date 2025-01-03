@@ -12,6 +12,7 @@ export class ImportMovementComponent {
   fileName: string = "";
   period: Date | null = null;
   selectedBatchId: number;
+  approvalStatus: boolean | null = null; // Variable para rastrear el estado de aprobación
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -45,5 +46,10 @@ export class ImportMovementComponent {
         },
       });
     }
+  }
+
+  onApproved(status: boolean): void {
+    this.approvalStatus = status; // Registra el estado de aprobación
+    console.log('Approval status:', status);
   }
 }

@@ -19,9 +19,11 @@ export class ApproveBatchButtonComponent {
       this.batchService.approve(this.batchId).subscribe({
         next: (response) => {
           this.snackBar.open(response.message, "Cerrar", { duration: 3000 });
+          this.approved.emit(true);
         },
         error: (response) => {
           console.log(response);
+          this.approved.emit(false);
           this.snackBar.open(
             `Error al subir el archivo:${response.error.message}`,
             "Cerrar",
