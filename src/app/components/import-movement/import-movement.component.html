@@ -54,16 +54,24 @@
   </div>
   <div class="row" *ngIf="selectedBatchId != null">
     <div class="card">
-      <approve-batch-button 
-      [batchId]="selectedBatchId"
-      (approved)="onApproved($event)">
-    </approve-batch-button>
+      <approve-batch-button
+        [batchId]="selectedBatchId"
+        (approved)="onApproved($event)"
+      >
+      </approve-batch-button>
+    </div>
+    <div *ngIf="approvalStatus === true" class="card">
+      <generate-movements-button
+        [batchId]="selectedBatchId"
+        (movementsGenerated)="onMovementsCreated($event)"
+      >
+      </generate-movements-button>
     </div>
     <div *ngIf="approvalStatus === true" class="alert alert-success mt-3">
       Batch approved successfully!
     </div>
     <div *ngIf="approvalStatus === false" class="alert alert-danger mt-3">
       Failed to approve the batch.
-    </div>    
+    </div>
   </div>
 </div>

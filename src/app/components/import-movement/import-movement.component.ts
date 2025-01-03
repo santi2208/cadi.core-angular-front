@@ -13,7 +13,7 @@ export class ImportMovementComponent {
   period: Date | null = null;
   selectedBatchId: number;
   approvalStatus: boolean | null = null; // Variable para rastrear el estado de aprobación
-
+  movementsCreated: boolean | null = null; // Variable para rastrear el estado de aprobación
   constructor(
     private fileUploadService: FileUploadService,
     private snackBar: MatSnackBar
@@ -51,5 +51,10 @@ export class ImportMovementComponent {
   onApproved(status: boolean): void {
     this.approvalStatus = status; // Registra el estado de aprobación
     console.log('Approval status:', status);
+  }
+
+  onMovementsCreated(status: boolean): void {
+    this.movementsCreated = status; // Registra el estado de aprobación
+    console.log('Movements created:', status);
   }
 }
