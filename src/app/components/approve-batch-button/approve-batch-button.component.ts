@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { BatchService } from "app/services/batch/batch.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'approve-batch-button',
@@ -8,16 +9,25 @@ import { BatchService } from "app/services/batch/batch.service";
 })
 export class ApproveBatchButtonComponent {
   @Input() batchId!: number;
-  constructor(private batchService: BatchService) { }
+  @Output() approved = new EventEmitter<boolean>(); // Emite evento cuando la aprobación es exitosa
+  constructor(
+    private batchService: BatchService,
+    private snackBar: MatSnackBar
+  ) { }
   approve(): void {
     if (this.batchId) {
       this.batchService.approve(this.batchId).subscribe({
         next: (response) => {
-          console.log("Batch approved successfully:", response);
+          this.snackBar.open(response.message, "Cerrar", { duration: 3000 });
         },
-        error: (error) => {
-          console.error("Error approving batch:", error);
-        },
+        error: (response) => {
+          console.log(response);
+          this.snackBar.open(
+            `Error al subir el archivo:${response.error.message}`,
+            "Cerrar",
+            { duration: 3000 }
+          );
+        }
       });
     }
   }
