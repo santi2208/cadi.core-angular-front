@@ -1,0 +1,107 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <!-- <div class="card-header card-header-danger mb-4">
+            <h4 class="card-title">Movimientos</h4>
+            <p class="card-category">
+              Listado de movimientos existentes en el sistema
+            </p>
+          </div> -->
+          <div class="row col-md-12 mb-4">
+          <div class="col-md-6 mb-4">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Buscar..."
+              [(ngModel)]="searchTerm"
+              (input)="onSearchTermChange()"
+            />
+          </div>
+          <div class="col-md-6 mb-4">
+            <mat-slide-toggle
+              [(ngModel)]="showErrorsOnly"
+              (change)="onErrorToggleChange()"
+              color="primary"
+            >
+              Mostrar solo errores
+            </mat-slide-toggle>
+          </div>
+        </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th (click)="onSort('lineNumber')">Nro. Linea</th>
+                    <th (click)="onSort('date')">Fecha</th>
+                    <th (click)="onSort('period')">Periodo</th>
+                    <th (click)="onSort('sourceAccountNumber')">Cuenta Origen</th>
+                    <th (click)="onSort('targetAccountNumber')">Cuenta Destino</th>
+                    <th (click)="onSort('currency')">Moneda</th>
+                    <th (click)="onSort('amount')">Importe</th>
+                    <th (click)="onSort('details')">Observaciones</th>
+                    <th (click)="onSort('errors')">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let line of filteredLines" [ngClass]="{ 'error-row': line.errors }">
+                    <td>{{ line.lineNumber }}</td>
+                    <td>{{ line.date }}</td>
+                    <td>{{ line.period }}</td>
+                    <td>{{ line.sourceAccountNumber }}</td>
+                    <td>{{ line.targetAccountNumber }}</td>
+                    <td>{{ line.currency }}</td>
+                    <td>{{ line.amount }}</td>
+                    <td>{{ line.details }}</td>
+                    <td>
+                        <span 
+                          class="pill" 
+                          [ngClass]="line.errors ? 'pill-error' : 'pill-ok'">
+                          {{ line.errors ? 'Error' : 'OK' }}
+                        </span>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav>
+              <ul class="pagination">
+                <li
+                  class="page-item"
+                  [class.disabled]="currentPage === 1"
+                  (click)="onPageChange(currentPage - 1)"
+                >
+                  <a class="page-link">Anterior</a>
+                </li>
+                <li
+                  class="page-item"
+                  *ngFor="
+                    let page of [].constructor(
+                      Math.ceil(filteredLines.length / itemsPerPage)
+                    );
+                    let i = index
+                  "
+                  [class.active]="currentPage === i + 1"
+                  (click)="onPageChange(i + 1)"
+                >
+                  <a class="page-link">{{ i + 1 }}</a>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="
+                    currentPage ===
+                    Math.ceil(filteredLines.length / itemsPerPage)
+                  "
+                  (click)="onPageChange(currentPage + 1)"
+                >
+                  <a class="page-link">Siguiente</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
