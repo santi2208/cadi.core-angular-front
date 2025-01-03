@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ImportLinesServiceService } from "../../services/import-lines/import-lines-service.service";
 import { MovementLineWithStatus } from "app/dtos/movements.interfaces";
+
 @Component({
   selector: "import-lines",
   templateUrl: "./import-lines.component.html",
@@ -24,6 +25,7 @@ export class ImportLinesComponent implements OnInit {
       .getAllByBatchId(batchId)
       .subscribe((data) => {
         this.lines = data;
+        this.applyFilterAndSort();
       });
   }
   applyFilterAndSort(): void {
@@ -32,13 +34,13 @@ export class ImportLinesComponent implements OnInit {
       const searchTermLower = this.searchTerm.toLowerCase();
       this.filteredLines = this.lines.filter(
         (line) =>
-          line.sourceAccountNumber.toLowerCase().includes(searchTermLower) ||
-          line.targetAccountNumber.toLowerCase().includes(searchTermLower) ||
-          line.currency.toLowerCase().includes(searchTermLower) ||
-          line.details.toLowerCase().includes(searchTermLower) ||
-          line.lineNumber.toString().toLowerCase().includes(searchTermLower) ||
-          line.amount.toString().toLowerCase().includes(searchTermLower) ||
-          line.processingDate.toString().toLowerCase().includes(searchTermLower)
+          line.sourceAccountNumber?.toLowerCase().includes(searchTermLower) ||
+          line.targetAccountNumber?.toLowerCase().includes(searchTermLower) ||
+          line.currency?.toLowerCase().includes(searchTermLower) ||
+          line.details?.toLowerCase().includes(searchTermLower) ||
+          line.lineNumber?.toString().toLowerCase().includes(searchTermLower) ||
+          line.amount?.toString().toLowerCase().includes(searchTermLower) ||
+          line.processingDate?.toString().toLowerCase().includes(searchTermLower)
       );
 
       // Ordenar
