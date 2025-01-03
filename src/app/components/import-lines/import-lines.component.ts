@@ -15,6 +15,8 @@ export class ImportLinesComponent implements OnInit {
   searchTerm = "";
   sortColumn: keyof MovementLineWithStatus = "id";
   sortDirection: "asc" | "desc" = "asc";
+  showErrorsOnly: boolean = false;
+
   public Math = Math;
 
   constructor(private importLinesServiceService: ImportLinesServiceService) {}
@@ -34,13 +36,14 @@ export class ImportLinesComponent implements OnInit {
       const searchTermLower = this.searchTerm.toLowerCase();
       this.filteredLines = this.lines.filter(
         (line) =>
-          line.sourceAccountNumber?.toLowerCase().includes(searchTermLower) ||
-          line.targetAccountNumber?.toLowerCase().includes(searchTermLower) ||
-          line.currency?.toLowerCase().includes(searchTermLower) ||
-          line.details?.toLowerCase().includes(searchTermLower) ||
-          line.lineNumber?.toString().toLowerCase().includes(searchTermLower) ||
-          line.amount?.toString().toLowerCase().includes(searchTermLower) ||
-          line.processingDate?.toString().toLowerCase().includes(searchTermLower)
+          (line.sourceAccountNumber.toLowerCase().includes(searchTermLower) ||
+            line.targetAccountNumber.toLowerCase().includes(searchTermLower) ||
+            line.currency.toLowerCase().includes(searchTermLower) ||
+            line.details.toLowerCase().includes(searchTermLower) ||
+            line.lineNumber.toString().toLowerCase().includes(searchTermLower) ||
+            line.amount.toString().toLowerCase().includes(searchTermLower) ||
+            line.processingDate.toString().toLowerCase().includes(searchTermLower)) &&
+          (!this.showErrorsOnly || (line.errors && line.errors !== ""))
       );
 
       // Ordenar
@@ -115,4 +118,9 @@ export class ImportLinesComponent implements OnInit {
     this.currentPage = page;
     this.applyFilterAndSort();
   }
+
+  onErrorToggleChange(): void {
+    this.currentPage = 1; // Reiniciar a la primera página
+    this.applyFilterAndSort();
+  }  
 }

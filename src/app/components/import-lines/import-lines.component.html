@@ -17,6 +17,16 @@
               (input)="onSearchTermChange()"
             />
           </div>
+          <div class="col-md-6 mb-4">
+            <label>
+              <input
+                type="checkbox"
+                [(ngModel)]="showErrorsOnly"
+                (change)="onErrorToggleChange()"
+              />
+              Errors?
+            </label>
+          </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table">
@@ -30,10 +40,11 @@
                     <th (click)="onSort('currency')">Moneda</th>
                     <th (click)="onSort('amount')">Importe</th>
                     <th (click)="onSort('details')">Observaciones</th>
+                    <th (click)="onSort('errors')">Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let line of filteredLines">
+                  <tr *ngFor="let line of filteredLines" [ngClass]="{ 'error-row': line.errors }">
                     <td>{{ line.lineNumber }}</td>
                     <td>{{ line.date }}</td>
                     <td>{{ line.period }}</td>
@@ -42,6 +53,13 @@
                     <td>{{ line.currency }}</td>
                     <td>{{ line.amount }}</td>
                     <td>{{ line.details }}</td>
+                    <td>
+                        <span 
+                          class="pill" 
+                          [ngClass]="line.errors ? 'pill-error' : 'pill-ok'">
+                          {{ line.errors ? 'Error' : 'OK' }}
+                        </span>
+                      </td>
                   </tr>
                 </tbody>
               </table>
