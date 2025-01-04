@@ -19,9 +19,7 @@
           </div>
 
           <div class="form-group">
-            <label for="fileInput" class="bmd-label-static"
-              >Subir archivo CSV</label
-            >
+            <label for="fileInput" class="bmd-label-static">Subir archivo CSV</label>
             <div class="custom-file">
               <input
                 type="file"
@@ -30,9 +28,8 @@
                 (change)="onFileSelected($event)"
                 accept=".csv"
               />
-              <label class="custom-file-label" for="fileInput"
-                >Seleccionar archivo</label
-              >
+              <label class="custom-file-label" for="fileInput">
+                {{ fileName || "Seleccionar archivo" }}</label>
             </div>
           </div>
 
@@ -47,31 +44,50 @@
       </div>
     </div>
   </div>
-  <div class="row" *ngIf="selectedBatchId != null">
-    <div class="card">
-      <import-lines 
-      [batchId]="selectedBatchId"
-      (hasErrors)="onImportLinesErrors($event)"
+  <!-- Fila para import-lines -->
+  <div class="row mt-4" *ngIf="selectedBatchId != null">
+    <div class="card w-100">
+      <import-lines
+        [batchId]="selectedBatchId"
+        (hasErrors)="onImportLinesErrors($event)"
       ></import-lines>
     </div>
   </div>
-  <div class="row" *ngIf="selectedBatchId != null">
-    <div class="card" *ngIf="linesWithErrors === true">
-      <p> No se puede aprobar el lote porque contiene errores</p>
-    </div>
-    <div class="card" *ngIf="linesWithErrors === false">
-      <approve-batch-button
-        [batchId]="selectedBatchId"
-        (approved)="onApproved($event)"
-      >
-      </approve-batch-button>
-    </div>
-    <div *ngIf="approvalStatus === true" class="card">
-      <generate-movements-button
-        [batchId]="selectedBatchId"
-        (movementsGenerated)="onMovementsCreated($event)"
-      >
-      </generate-movements-button>
+
+  <!-- Fila para approve-batch-button y generate-movements-button -->
+  <div class="row mt-4" *ngIf="selectedBatchId != null">
+    <div class="card w-50">
+      <div class="d-flex align-items-center">
+        <div *ngIf="linesWithErrors === false">
+          <approve-batch-button
+            [batchId]="selectedBatchId"
+            (approved)="onApproved($event)"
+          ></approve-batch-button>
+        </div>
+        <span class="mx-2" *ngIf="approvalStatus === true">
+          <span class="material-icons">arrow_forward</span>
+        </span>
+        <div *ngIf="approvalStatus === true">
+          <generate-movements-button
+            [batchId]="selectedBatchId"
+            (movementsGenerated)="onMovementsCreated($event)"
+          ></generate-movements-button>
+        </div>
+        <span class="mx-2" *ngIf="movementsCreated === true">
+          <span class="material-icons">arrow_forward</span>
+        </span>
+        <div *ngIf="movementsCreated === true">
+          <button
+            class="btn btn-info"
+            (click)="viewMovements()"
+          >
+            Ver movimientos
+          </button>
+        </div>
+      </div>
+      <div class="text-danger mt-2" *ngIf="linesWithErrors === true">
+        No se puede aprobar el lote porque contiene errores.
+      </div>
     </div>
   </div>
 </div>
