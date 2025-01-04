@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import { FileUploadService } from "../../services/file-upload/file-upload.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ImportLinesComponent } from "../import-lines/import-lines.component";
+import { Router } from "@angular/router";
+
 @Component({
   selector: "import-movement",
   templateUrl: "./import-movement.component.html",
@@ -18,7 +19,8 @@ export class ImportMovementComponent {
   
   constructor(
     private fileUploadService: FileUploadService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   onFileSelected(event: Event): void {
@@ -62,5 +64,9 @@ export class ImportMovementComponent {
     // this.linesWithErrors = hasError;
     console.log("this.linesWithErrors");
     console.log(this.linesWithErrors);
+  }
+
+  viewMovements() {
+    this.router.navigate(['/movement-grid']); // Ajusta la ruta según la configuración de tus rutas
   }
 }
