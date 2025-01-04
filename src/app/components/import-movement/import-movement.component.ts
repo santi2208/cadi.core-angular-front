@@ -30,7 +30,6 @@ export class ImportMovementComponent {
 
   onSubmit(): void {
     if (this.file && this.period) {
-      console.log(this.period);
       const formattedPeriod = this.period.toString();
       this.fileUploadService.uploadFile(this.file, formattedPeriod).subscribe({
         next: (response) => {
@@ -38,7 +37,6 @@ export class ImportMovementComponent {
           this.snackBar.open(response.message, "Cerrar", { duration: 3000 });
         },
         error: (response) => {
-          console.log(response);
           this.snackBar.open(
             `Error al subir el archivo:${response.error.message}`,
             "Cerrar",
@@ -60,7 +58,7 @@ export class ImportMovementComponent {
   }
 
   onImportLinesErrors(hasError: boolean): void {
-    this.linesWithErrors = hasError;
+    // this.linesWithErrors = hasError;
     console.log("this.linesWithErrors");
     console.log(this.linesWithErrors);
   }

@@ -109,9 +109,6 @@ export class AccountBalanceGridComponent implements OnInit {
   }
 
   onPageChange(page: number): void {
-    console.log("-----Page-----");
-    console.log(page);
-    console.log("----------");
     this.currentPage = page;
     this.applyFilterAndSort();
   }
