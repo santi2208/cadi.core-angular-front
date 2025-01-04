@@ -30,8 +30,8 @@
                 (change)="onFileSelected($event)"
                 accept=".csv"
               />
-              <label class="custom-file-label" for="fileInput"
-                >Seleccionar archivo</label
+              <label class="custom-file-label" for="fileInput">
+                {{ fileName || "Seleccionar archivo" }}</label
               >
             </div>
           </div>
@@ -49,15 +49,15 @@
   </div>
   <div class="row" *ngIf="selectedBatchId != null">
     <div class="card">
-      <import-lines 
-      [batchId]="selectedBatchId"
-      (hasErrors)="onImportLinesErrors($event)"
+      <import-lines
+        [batchId]="selectedBatchId"
+        (hasErrors)="onImportLinesErrors($event)"
       ></import-lines>
     </div>
   </div>
   <div class="row" *ngIf="selectedBatchId != null">
     <div class="card" *ngIf="linesWithErrors === true">
-      <p> No se puede aprobar el lote porque contiene errores</p>
+      <p>No se puede aprobar el lote porque contiene errores</p>
     </div>
     <div class="card" *ngIf="linesWithErrors === false">
       <approve-batch-button
