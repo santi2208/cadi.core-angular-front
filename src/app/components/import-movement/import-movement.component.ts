@@ -12,7 +12,9 @@ export class ImportMovementComponent {
   fileName: string = "";
   period: Date | null = null;
   selectedBatchId: number;
-
+  approvalStatus: boolean | null = null; // Variable para rastrear el estado de aprobación
+  movementsCreated: boolean | null = null; // Variable para rastrear el estado de aprobación
+  linesWithErrors: boolean = false; // Variable para deshabilitar el botón
   constructor(
     private fileUploadService: FileUploadService,
     private snackBar: MatSnackBar
@@ -28,7 +30,6 @@ export class ImportMovementComponent {
 
   onSubmit(): void {
     if (this.file && this.period) {
-      console.log(this.period);
       const formattedPeriod = this.period.toString();
       this.fileUploadService.uploadFile(this.file, formattedPeriod).subscribe({
         next: (response) => {
@@ -36,14 +37,29 @@ export class ImportMovementComponent {
           this.snackBar.open(response.message, "Cerrar", { duration: 3000 });
         },
         error: (response) => {
-          console.log(response);
           this.snackBar.open(
-            `Error al subir el archivo:${response.error.message}`,
+            `Error al subir el archivo: ${response.error.message}`,
             "Cerrar",
             { duration: 3000 }
           );
         },
       });
     }
+  }
+
+  onApproved(status: boolean): void {
+    this.approvalStatus = status; // Registra el estado de aprobación
+    console.log('Approval status:', status);
+  }
+
+  onMovementsCreated(status: boolean): void {
+    this.movementsCreated = status; // Registra el estado de aprobación
+    console.log('Movements created:', status);
+  }
+
+  onImportLinesErrors(hasError: boolean): void {
+    // this.linesWithErrors = hasError;
+    console.log("this.linesWithErrors");
+    console.log(this.linesWithErrors);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { ImportLinesServiceService } from "../../services/import-lines/import-lines-service.service";
 import { MovementLineWithStatus } from "app/dtos/movements.interfaces";
 
@@ -19,7 +19,8 @@ export class ImportLinesComponent implements OnInit {
   showErrorsOnly: boolean = false;
 
   public Math = Math;
-
+  
+  @Output() hasErrors = new EventEmitter<boolean>();
   constructor(private importLinesServiceService: ImportLinesServiceService) {}
 
   ngOnInit(): void {
@@ -27,7 +28,7 @@ export class ImportLinesComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    this.loadData(); // Re-cargar los datos si el batchId cambia dinámicamente
+    // this.loadData(); // Re-cargar los datos si el batchId cambia dinámicamente
   }
 
   private loadData(): void {
@@ -36,6 +37,8 @@ export class ImportLinesComponent implements OnInit {
         .getAllByBatchId(this.batchId)
         .subscribe((data) => {
           this.lines = data;
+          const hasErrors = this.lines.some(e => e.errors !== null && e.errors !== "");
+          this.hasErrors.emit(false);
           this.applyFilterAndSort();
         });
     }
@@ -47,13 +50,13 @@ export class ImportLinesComponent implements OnInit {
       const searchTermLower = this.searchTerm.toLowerCase();
       this.filteredLines = this.lines.filter(
         (line) =>
-          (line.sourceAccountNumber.toLowerCase().includes(searchTermLower) ||
-            line.targetAccountNumber.toLowerCase().includes(searchTermLower) ||
-            line.currency.toLowerCase().includes(searchTermLower) ||
-            line.details.toLowerCase().includes(searchTermLower) ||
-            line.lineNumber.toString().toLowerCase().includes(searchTermLower) ||
-            line.amount.toString().toLowerCase().includes(searchTermLower) ||
-            line.processingDate.toString().toLowerCase().includes(searchTermLower)) &&
+          (line.sourceAccountNumber?.toLowerCase().includes(searchTermLower) ||
+            line.targetAccountNumber?.toLowerCase().includes(searchTermLower) ||
+            line.currency?.toLowerCase().includes(searchTermLower) ||
+            line.details?.toLowerCase().includes(searchTermLower) ||
+            line.lineNumber?.toString().toLowerCase().includes(searchTermLower) ||
+            line.amount?.toString().toLowerCase().includes(searchTermLower) ||
+            line.processingDate?.toString().toLowerCase().includes(searchTermLower)) &&
           (!this.showErrorsOnly || (line.errors && line.errors !== ""))
       );
 

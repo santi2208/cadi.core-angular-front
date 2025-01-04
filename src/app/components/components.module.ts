@@ -13,6 +13,7 @@ import { AccountPeriodBalanceGridComponent } from './account-period-balance-grid
 import { ImportMovementComponent } from './import-movement/import-movement.component';
 import { ImportLinesComponent } from './import-lines/import-lines.component';
 import { ApproveBatchButtonComponent } from './approve-batch-button/approve-batch-button.component';
+import { GenerateMovementsButtonComponent } from './generate-movements-button/generate-movements-button.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { ApproveBatchButtonComponent } from './approve-batch-button/approve-batc
     AccountPeriodBalanceGridComponent,
     ImportMovementComponent,
     ImportLinesComponent,
-    ApproveBatchButtonComponent
+    ApproveBatchButtonComponent,
+    GenerateMovementsButtonComponent
   ],
   exports: [
     FooterComponent,
