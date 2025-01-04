@@ -38,7 +38,7 @@ export class ImportMovementComponent {
         },
         error: (response) => {
           this.snackBar.open(
-            `Error al subir el archivo:${response.error.message}`,
+            `Error al subir el archivo: ${response.error.message}`,
             "Cerrar",
             { duration: 3000 }
           );

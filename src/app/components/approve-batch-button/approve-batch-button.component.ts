@@ -25,7 +25,7 @@ export class ApproveBatchButtonComponent {
           console.log(response);
           this.approved.emit(false);
           this.snackBar.open(
-            `Error al subir el archivo:${response.error.message}`,
+            `Error al intentar aprobar el lote: ${response.error.message}`,
             "Cerrar",
             { duration: 3000 }
           );
