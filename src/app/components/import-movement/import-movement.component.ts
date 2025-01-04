@@ -16,7 +16,7 @@ export class ImportMovementComponent {
   approvalStatus: boolean | null = null; // Variable para rastrear el estado de aprobación
   movementsCreated: boolean | null = null; // Variable para rastrear el estado de aprobación
   linesWithErrors: boolean = false; // Variable para deshabilitar el botón
-  
+
   constructor(
     private fileUploadService: FileUploadService,
     private snackBar: MatSnackBar,
