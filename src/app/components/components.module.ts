@@ -14,6 +14,7 @@ import { ImportMovementComponent } from './import-movement/import-movement.compo
 import { ImportLinesComponent } from './import-lines/import-lines.component';
 import { ApproveBatchButtonComponent } from './approve-batch-button/approve-batch-button.component';
 import { GenerateMovementsButtonComponent } from './generate-movements-button/generate-movements-button.component';
+import { BatchesGridComponent } from './batches-grid/batches-grid.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { GenerateMovementsButtonComponent } from './generate-movements-button/ge
     ImportMovementComponent,
     ImportLinesComponent,
     ApproveBatchButtonComponent,
-    GenerateMovementsButtonComponent
+    GenerateMovementsButtonComponent,
+    BatchesGridComponent
   ],
   exports: [
     FooterComponent,
