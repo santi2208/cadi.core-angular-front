@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Batch } from "app/dtos/batches.interfaces";
 import { BatchService } from "app/services/batch/batch.service";
+import { MovementsService } from "app/services/movements/movements.service";
 
 @Component({
   selector: "batches-grid",
@@ -17,7 +19,11 @@ export class BatchesGridComponent implements OnInit {
   sortDirection: "asc" | "desc" = "asc";
   public Math = Math;
 
-  constructor(private batchService: BatchService) {}
+  constructor(
+    private batchService: BatchService,
+    private movementsService: MovementsService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.batchService.getAll().subscribe((data) => {
@@ -90,5 +96,43 @@ export class BatchesGridComponent implements OnInit {
   onPageChange(page: number): void {
     this.currentPage = page;
     this.applyFilterAndSort();
+  }
+
+  createMovements(batchId: number): void {
+    this.movementsService.createMovementsFromBatchId(batchId).subscribe({
+      next: (response) => {
+        this.snackBar.open("Movimientos creados exitosamente.", "Cerrar", {
+          duration: 3000,
+        });
+        this.refreshData(); // Método para actualizar los datos
+      },
+      error: (error) => {
+        this.snackBar.open("Error al crear movimientos.", "Cerrar", {
+          duration: 3000,
+        });
+        console.error(error);
+      },
+    });
+  }
+
+  approveBatch(batchId: number): void {
+    this.batchService.approve(batchId).subscribe({
+      next: (response) => {
+        this.snackBar.open("Lote aprobado exitosamente.", "Cerrar", {
+          duration: 3000,
+        });
+        this.refreshData(); // Método para actualizar los datos
+      },
+      error: (error) => {
+        this.snackBar.open("Error al aprobar el lote.", "Cerrar", {
+          duration: 3000,
+        });
+        console.error(error);
+      },
+    });
+  }
+
+  refreshData(): void {
+    // TODO: Completar
   }
 }

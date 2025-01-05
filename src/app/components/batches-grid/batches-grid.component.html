@@ -27,6 +27,7 @@
                   <th (click)="onSort('createdDate')">Fecha creación</th>
                   <th (click)="onSort('approvedDate')">Fecha aprobación</th>
                   <th (click)="onSort('hasErrors')">Tiene Errores</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,6 +42,40 @@
                       [ngClass]="batch.hasErrors ? 'pill-error' : 'pill-ok'"
                     >
                       {{ batch.hasErrors ? "SI" : "NO" }}
+                    </span>
+                  </td>
+                  <td class="action-icons">
+                    <!-- Icono Aprobar Lote -->
+                    <span
+                      class="material-icons"
+                      [ngClass]="{
+                        'enabled-icon': !batch.approvedDate && !batch.hasErrors,
+                        'disabled-icon': batch.approvedDate || batch.hasErrors
+                      }"
+                      (click)="
+                        !batch.approvedDate &&
+                          !batch.hasErrors &&
+                          approveBatch(batch.id)
+                      "
+                      title="Aprobar lote"
+                    >
+                      check_circle
+                    </span>
+                    <!-- Icono Crear Movimientos -->
+                    <span
+                      class="material-icons"
+                      [ngClass]="{
+                        'enabled-icon': batch.approvedDate && !batch.hasErrors,
+                        'disabled-icon': !batch.approvedDate || batch.hasErrors
+                      }"
+                      (click)="
+                        batch.approvedDate &&
+                          !batch.hasErrors &&
+                          createMovements(batch.id)
+                      "
+                      title="Crear movimientos"
+                    >
+                      add_circle
                     </span>
                   </td>
                 </tr>
