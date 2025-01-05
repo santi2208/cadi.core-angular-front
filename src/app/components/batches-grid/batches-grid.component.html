@@ -35,7 +35,14 @@
                   <td>{{ batch.fileName }}</td>
                   <td>{{ batch.createdDate }}</td>
                   <td>{{ batch.approvedDate || "-" }}</td>
-                  <td>{{ batch.hasErrors ? "SI" : "NO" }}</td>
+                  <td>
+                    <span
+                      class="pill"
+                      [ngClass]="batch.hasErrors ? 'pill-error' : 'pill-ok'"
+                    >
+                      {{ batch.hasErrors ? "SI" : "NO" }}
+                    </span>
+                  </td>
                 </tr>
               </tbody>
             </table>
