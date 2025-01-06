@@ -10,10 +10,10 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: '/import-movement', title: 'Importacion de movimientos',  icon:'upload', class: '' },   
     { path: '/batches-grid', title: 'Lotes',  icon:'batch_prediction', class: '' },   
-    { path: '/account-grid', title: 'Cuentas',  icon:'content_paste', class: '' },
     { path: '/movement-grid', title: 'Movimientos',  icon:'bubble_chart', class: '' },
     { path: '/account-balance-grid', title: 'Balances Generales',  icon:'leaderboard', class: '' },
     { path: '/account-period-balance-grid', title: 'Balances Por Períodos',  icon:'timeline', class: '' },  
+    { path: '/account-grid', title: 'Cuentas',  icon:'content_paste', class: '' },
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
     { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
