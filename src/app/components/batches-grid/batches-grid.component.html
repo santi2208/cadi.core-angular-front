@@ -26,6 +26,7 @@
                   <th (click)="onSort('fileName')">Archivo</th>
                   <th (click)="onSort('createdDate')">Fecha creación</th>
                   <th (click)="onSort('approvedDate')">Fecha aprobación</th>
+                  <th (click)="onSort('linesCount')">Cant. Líneas</th>
                   <th (click)="onSort('hasErrors')">Tiene Errores</th>
                   <th>Acciones</th>
                 </tr>
@@ -36,6 +37,7 @@
                   <td>{{ batch.fileName }}</td>
                   <td>{{ batch.createdDate }}</td>
                   <td>{{ batch.approvedDate || "-" }}</td>
+                  <td>{{ batch.linesCount }}</td>
                   <td>
                     <span
                       class="pill"

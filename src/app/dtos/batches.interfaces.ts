@@ -6,4 +6,5 @@ export interface Batch {
   approvedDate: Date;
   approvedBy: number;
   hasErrors: boolean;
+  linesCount: number;
 }

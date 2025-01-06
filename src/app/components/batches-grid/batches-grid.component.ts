@@ -46,6 +46,10 @@ export class BatchesGridComponent implements OnInit {
           batch.approvedDate
             ?.toString()
             ?.toLowerCase()
+            .includes(searchTermLower) ||
+          batch.linesCount
+            ?.toString()
+            ?.toLowerCase()
             .includes(searchTermLower)
       );
 
@@ -53,7 +57,8 @@ export class BatchesGridComponent implements OnInit {
       this.filteredBatches.sort((a, b) => {
         const valueA =
           this.sortColumn === "approvedDate" ||
-          this.sortColumn === "createdDate"
+          this.sortColumn === "createdDate" ||
+          this.sortColumn === "linesCount" 
             ? (a[this.sortColumn] || "").toString().toLowerCase()
             : (a[this.sortColumn] || "").toString().toLowerCase();
 
