@@ -26,6 +26,10 @@ export class BatchesGridComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(): void{
     this.batchService.getAll().subscribe((data) => {
       this.batch = data;
       this.applyFilterAndSort();
@@ -139,6 +143,6 @@ export class BatchesGridComponent implements OnInit {
   }
 
   refreshData(): void {
-    // TODO: Completar
+    this.loadData();
   }
 }
