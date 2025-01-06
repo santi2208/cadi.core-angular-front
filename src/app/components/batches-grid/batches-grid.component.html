@@ -1,0 +1,127 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger mb-4">
+          <h4 class="card-title">Lotes</h4>
+          <p class="card-category">
+            Listado de lotest existentes en el sistema
+          </p>
+        </div>
+        <div class="col-md-6 mb-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchTermChange()"
+          />
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th (click)="onSort('id')">ID</th>
+                  <th (click)="onSort('fileName')">Archivo</th>
+                  <th (click)="onSort('createdDate')">Fecha Creación</th>
+                  <th (click)="onSort('approvedDate')">Fecha Aprobación</th>
+                  <th (click)="onSort('redeemedDate')">Fecha Redención</th>
+                  <th (click)="onSort('linesCount')">Cant. Líneas</th>
+                  <th (click)="onSort('hasErrors')">Tiene Errores</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let batch of filteredBatches">
+                  <td>{{ batch.id }}</td>
+                  <td>{{ batch.fileName }}</td>
+                  <td>{{ batch.createdDate }}</td>
+                  <td>{{ batch.approvedDate || "-" }}</td>
+                  <td>{{ batch.redeemedDate || "-" }}</td>
+                  <td>{{ batch.linesCount }}</td>
+                  <td>
+                    <span
+                      class="pill"
+                      [ngClass]="batch.hasErrors ? 'pill-error' : 'pill-ok'"
+                    >
+                      {{ batch.hasErrors ? "SI" : "NO" }}
+                    </span>
+                  </td>
+                  <td class="action-icons">
+                    <!-- Icono Aprobar Lote -->
+                    <span
+                      class="material-icons"
+                      [ngClass]="{
+                        'enabled-icon': !batch.approvedDate && !batch.hasErrors && !batch.redeemedDate,
+                        'disabled-icon': batch.approvedDate || batch.hasErrors || batch.redeemedDate
+                      }"
+                      (click)="
+                        !batch.approvedDate &&
+                          !batch.hasErrors &&
+                          approveBatch(batch.id)
+                      "
+                      title="Aprobar lote"
+                    >
+                      check_circle
+                    </span>
+                    <!-- Icono Crear Movimientos -->
+                    <span
+                      class="material-icons"
+                      [ngClass]="{
+                        'enabled-icon': batch.approvedDate && !batch.hasErrors && !batch.redeemedDate,
+                        'disabled-icon': !batch.approvedDate || batch.hasErrors || batch.redeemedDate
+                      }"
+                      (click)="
+                        batch.approvedDate &&
+                          !batch.hasErrors &&
+                          createMovements(batch.id)
+                      "
+                      title="Crear movimientos"
+                    >
+                      add_circle
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav>
+            <ul class="pagination">
+              <li
+                class="page-item"
+                [class.disabled]="currentPage === 1"
+                (click)="onPageChange(currentPage - 1)"
+              >
+                <a class="page-link">Anterior</a>
+              </li>
+              <li
+                class="page-item"
+                *ngFor="
+                  let page of [].constructor(
+                    Math.ceil(filteredBatches.length / itemsPerPage)
+                  );
+                  let i = index
+                "
+                [class.active]="currentPage === i + 1"
+                (click)="onPageChange(i + 1)"
+              >
+                <a class="page-link">{{ i + 1 }}</a>
+              </li>
+              <li
+                class="page-item"
+                [class.disabled]="
+                  currentPage ===
+                  Math.ceil(filteredBatches.length / itemsPerPage)
+                "
+                (click)="onPageChange(currentPage + 1)"
+              >
+                <a class="page-link">Siguiente</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

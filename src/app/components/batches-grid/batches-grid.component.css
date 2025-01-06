@@ -1,0 +1,45 @@
+.pill {
+  display: inline-block;
+  padding: 0.25em 0.75em;
+  border-radius: 1em;
+  font-size: 0.875em;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.pill-ok {
+  background-color: #28a745; /* Verde */
+}
+
+.pill-error {
+  background-color: #dc3545; /* Rojo */
+}
+
+label {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+  transform: scale(1.2);
+}
+
+.action-icons .material-icons {
+  font-size: 24px; /* Ajusta el tamaño de los íconos */
+  margin-right: 10px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.enabled-icon {
+  color: #28a745; /* Verde para íconos habilitados */
+}
+
+.disabled-icon {
+  color: #ccc; /* Gris para íconos deshabilitados */
+  cursor: not-allowed; /* Indica que no se puede hacer clic */
+}

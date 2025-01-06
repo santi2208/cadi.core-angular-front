@@ -14,6 +14,7 @@ import { AccountBalanceGridComponent } from '../../components/account-balance-gr
 import { AccountPeriodBalanceGridComponent } from '../../components/account-period-balance-grid/account-period-balance-grid.component';
 import { ImportMovementComponent } from '../../components/import-movement/import-movement.component';
 import { ImportLinesComponent } from '../../components/import-lines/import-lines.component';
+import { BatchesGridComponent } from '../../components/batches-grid/batches-grid.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -30,4 +31,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'account-period-balance-grid', component: AccountPeriodBalanceGridComponent },
     { path: 'import-movement', component: ImportMovementComponent },
     { path: 'import-lines', component: ImportLinesComponent },
+    { path: 'batches-grid', component: BatchesGridComponent },
 ];

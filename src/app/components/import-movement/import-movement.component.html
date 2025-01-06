@@ -44,13 +44,31 @@
       </div>
     </div>
   </div>
-  <!-- Fila para import-lines -->
+  <!-- Colapsable para import-lines -->
   <div class="row mt-4" *ngIf="selectedBatchId != null">
     <div class="card w-100">
-      <import-lines
-        [batchId]="selectedBatchId"
-        (hasErrors)="onImportLinesErrors($event)"
-      ></import-lines>
+      <div class="card-header bg-secondary text-white">
+        <h5 class="mb-0">
+          <button
+            class="btn btn-link text-white"
+            type="button"
+            data-toggle="collapse"
+            data-target="#importLinesCollapse"
+            aria-expanded="false"
+            aria-controls="importLinesCollapse"
+          >
+          <span class="material-icons">keyboard_double_arrow_down</span> Ver líneas importadas
+          </button>
+        </h5>
+      </div>
+      <div id="importLinesCollapse" class="collapse">
+        <div class="card-body">
+          <import-lines
+            [batchId]="selectedBatchId"
+            (hasErrors)="onImportLinesErrors($event)"
+          ></import-lines>
+        </div>
+      </div>
     </div>
   </div>
 
