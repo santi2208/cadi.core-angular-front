@@ -14,6 +14,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/account-balance-grid', title: 'Balances Generales',  icon:'leaderboard', class: '' },
     { path: '/account-period-balance-grid', title: 'Balances Por Períodos',  icon:'timeline', class: '' },  
     { path: '/account-grid', title: 'Cuentas',  icon:'content_paste', class: '' },
+    { path: '/periods-grid', title: 'Periodos',  icon:'date_range', class: '' },
+    
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
     { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },

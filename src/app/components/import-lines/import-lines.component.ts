@@ -113,6 +113,7 @@ export class ImportLinesComponent implements OnInit {
       console.log("-----------------------------------------");
     }
   }
+  
   onSearchTermChange(): void {
     this.currentPage = 1;
     this.applyFilterAndSort();
