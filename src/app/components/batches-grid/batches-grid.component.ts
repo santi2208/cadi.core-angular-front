@@ -58,6 +58,7 @@ export class BatchesGridComponent implements OnInit {
         const valueA =
           this.sortColumn === "approvedDate" ||
           this.sortColumn === "createdDate" ||
+          this.sortColumn === "redeemedDate" ||
           this.sortColumn === "linesCount" 
             ? (a[this.sortColumn] || "").toString().toLowerCase()
             : (a[this.sortColumn] || "").toString().toLowerCase();

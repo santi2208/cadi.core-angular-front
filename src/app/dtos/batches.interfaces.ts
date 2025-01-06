@@ -4,6 +4,7 @@ export interface Batch {
   createdDate: Date;
   createdBy: number;
   approvedDate: Date;
+  redeemedDate: Date;
   approvedBy: number;
   hasErrors: boolean;
   linesCount: number;

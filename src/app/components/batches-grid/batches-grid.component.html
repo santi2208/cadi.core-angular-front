@@ -24,8 +24,9 @@
                 <tr>
                   <th (click)="onSort('id')">ID</th>
                   <th (click)="onSort('fileName')">Archivo</th>
-                  <th (click)="onSort('createdDate')">Fecha creación</th>
-                  <th (click)="onSort('approvedDate')">Fecha aprobación</th>
+                  <th (click)="onSort('createdDate')">Fecha Creación</th>
+                  <th (click)="onSort('approvedDate')">Fecha Aprobación</th>
+                  <th (click)="onSort('redeemedDate')">Fecha Redención</th>
                   <th (click)="onSort('linesCount')">Cant. Líneas</th>
                   <th (click)="onSort('hasErrors')">Tiene Errores</th>
                   <th>Acciones</th>
@@ -37,6 +38,7 @@
                   <td>{{ batch.fileName }}</td>
                   <td>{{ batch.createdDate }}</td>
                   <td>{{ batch.approvedDate || "-" }}</td>
+                  <td>{{ batch.redeemedDate || "-" }}</td>
                   <td>{{ batch.linesCount }}</td>
                   <td>
                     <span
@@ -51,8 +53,8 @@
                     <span
                       class="material-icons"
                       [ngClass]="{
-                        'enabled-icon': !batch.approvedDate && !batch.hasErrors,
-                        'disabled-icon': batch.approvedDate || batch.hasErrors
+                        'enabled-icon': !batch.approvedDate && !batch.hasErrors && !batch.redeemedDate,
+                        'disabled-icon': batch.approvedDate || batch.hasErrors || batch.redeemedDate
                       }"
                       (click)="
                         !batch.approvedDate &&
@@ -67,8 +69,8 @@
                     <span
                       class="material-icons"
                       [ngClass]="{
-                        'enabled-icon': batch.approvedDate && !batch.hasErrors,
-                        'disabled-icon': !batch.approvedDate || batch.hasErrors
+                        'enabled-icon': batch.approvedDate && !batch.hasErrors && !batch.redeemedDate,
+                        'disabled-icon': !batch.approvedDate || batch.hasErrors || batch.redeemedDate
                       }"
                       (click)="
                         batch.approvedDate &&
