@@ -18,6 +18,7 @@ import { GenerateMovementsButtonComponent } from './generate-movements-button/ge
 import { BatchesGridComponent } from './batches-grid/batches-grid.component';
 import { PeriodsGridComponent } from './periods-grid/periods-grid.component';
 import { BatchDetailModalComponent } from './batch-detail-modal/batch-detail-modal.component';
+// import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { BatchDetailModalComponent } from './batch-detail-modal/batch-detail-mod
     BatchesGridComponent,
     PeriodsGridComponent,
     BatchDetailModalComponent
+    // ,SpinnerComponent
   ],
   exports: [
     FooterComponent,
