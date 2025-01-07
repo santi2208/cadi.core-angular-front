@@ -1,0 +1,21 @@
+.custom-modal .modal-content {
+  border-radius: 30px;
+}
+.modal-backdrop.show {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); 
+}
+.modal-content {
+    max-height: 95vh; /* Limita la altura máxima de la ventana modal al 80% de la altura de la ventana */
+    overflow-y: auto; /* Activa el scroll vertical si el contenido excede la altura */
+  }
+  
+  .modal-body {
+    max-height: 95vh; /* Ajusta la altura del cuerpo del modal */
+    overflow-y: auto; /* Asegura que el scroll aparezca dentro del cuerpo del modal */
+  }
+  

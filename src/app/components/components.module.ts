@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -16,13 +17,15 @@ import { ApproveBatchButtonComponent } from './approve-batch-button/approve-batc
 import { GenerateMovementsButtonComponent } from './generate-movements-button/generate-movements-button.component';
 import { BatchesGridComponent } from './batches-grid/batches-grid.component';
 import { PeriodsGridComponent } from './periods-grid/periods-grid.component';
+import { BatchDetailModalComponent } from './batch-detail-modal/batch-detail-modal.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule
   ],
   declarations: [
     FooterComponent,
@@ -37,7 +40,8 @@ import { PeriodsGridComponent } from './periods-grid/periods-grid.component';
     ApproveBatchButtonComponent,
     GenerateMovementsButtonComponent,
     BatchesGridComponent,
-    PeriodsGridComponent
+    PeriodsGridComponent,
+    BatchDetailModalComponent
   ],
   exports: [
     FooterComponent,

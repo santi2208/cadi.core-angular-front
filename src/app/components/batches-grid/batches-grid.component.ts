@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialog } from '@angular/material/dialog';
 import { Batch } from "app/dtos/batches.interfaces";
 import { BatchService } from "app/services/batch/batch.service";
 import { MovementsService } from "app/services/movements/movements.service";
+import { BatchDetailModalComponent } from '../batch-detail-modal/batch-detail-modal.component';
 
 @Component({
   selector: "batches-grid",
@@ -22,7 +24,8 @@ export class BatchesGridComponent implements OnInit {
   constructor(
     private batchService: BatchService,
     private movementsService: MovementsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -145,4 +148,12 @@ export class BatchesGridComponent implements OnInit {
   refreshData(): void {
     this.loadData();
   }
+
+  openImportLinesModal(batchId: number): void {
+    this.dialog.open(BatchDetailModalComponent, {
+      width: '80%',
+      data: { batchId },
+    });
+  }
+  
 }

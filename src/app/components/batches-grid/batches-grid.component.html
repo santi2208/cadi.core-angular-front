@@ -33,7 +33,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let batch of filteredBatches">
+                <tr *ngFor="let batch of filteredBatches" (click)="openImportLinesModal(batch.id)">
                   <td>{{ batch.id }}</td>
                   <td>{{ batch.fileName }}</td>
                   <td>{{ batch.createdDate | date }}</td>
