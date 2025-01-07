@@ -26,6 +26,7 @@
                   <th (click)="onSort('startDate')">Fecha Inicio</th>
                   <th (click)="onSort('endDate')">Fecha Fin</th>
                   <th>Está cerrado</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -34,6 +35,20 @@
                   <td>{{ period.startDate | date }}</td>
                   <td>{{ period.endDate | date }}</td>
                   <td>{{ period.isClosed ? "SI" : "NO" }}</td>
+                  <td class="action-icons">
+                    <!-- Icono Cerrar periodo -->
+                    <span
+                      class="material-icons"
+                      [ngClass]="{
+                        'enabled-icon': !period.isClosed,
+                        'disabled-icon': period.isClosed
+                      }"
+                      (click)="!period.isClosed && closePeriod(period.id)"
+                      title="Cerrar Periodo"
+                    >
+                      event_busy
+                    </span>
+                  </td>
                 </tr>
               </tbody>
             </table>

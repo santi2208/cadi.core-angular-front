@@ -13,7 +13,7 @@ export class PeriodsGridComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 10;
   searchTerm = "";
-  sortColumn: keyof Period  | "id" | "startDate" | "endDate" | "isClosed";
+  sortColumn: keyof Period | "id" | "startDate" | "endDate" | "isClosed";
   sortDirection: "asc" | "desc" = "asc";
   public Math = Math;
 
@@ -98,5 +98,15 @@ export class PeriodsGridComponent implements OnInit {
   onPageChange(page: number): void {
     this.currentPage = page;
     this.applyFilterAndSort();
+  }
+
+  closePeriod(periodId: number): void {
+    this.periodsService.closePeriod(periodId).subscribe((data) => {
+      this.refreshData();
+    });
+  }
+
+  refreshData(): void {
+    this.loadData();
   }
 }
