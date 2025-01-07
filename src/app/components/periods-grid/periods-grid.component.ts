@@ -30,12 +30,12 @@ export class PeriodsGridComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(".........................");
     if (this.newPeriod) {
       const formattedPeriod = this.newPeriod.toString();
       this.periodsService.createPeriod(formattedPeriod).subscribe({
         next: (response) => {
           this.snackBar.open(response.message, "Cerrar", { duration: 3000 });
+          this.refreshData();
         },
         error: (response) => {
           this.snackBar.open(

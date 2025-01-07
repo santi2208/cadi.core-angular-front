@@ -93,6 +93,9 @@
           </div>
         </div>
         <div *ngIf="!periods || periods.length === 0">
+          <p class="card-category">
+            No existen períodos aún. Debe crear el primero. Los siguientes se crearán automáticamente al cerrar el período vigente.
+          </p>
           <div class="d-flex justify-content-center align-items-center">
             <form (ngSubmit)="onSubmit()" #fileForm="ngForm">
               <div class="form-group col-md-12 mb-4">
