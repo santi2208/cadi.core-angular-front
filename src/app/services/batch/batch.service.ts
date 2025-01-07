@@ -3,9 +3,10 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpParams,
+  HttpHeaders,
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { Batch } from "app/dtos/batches.interfaces";
 
 @Injectable({

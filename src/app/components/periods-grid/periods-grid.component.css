@@ -1,0 +1,15 @@
+.action-icons .material-icons {
+    font-size: 24px; /* Ajusta el tamaño de los íconos */
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .enabled-icon {
+    color: #28a745; /* Verde para íconos habilitados */
+  }
+  
+  .disabled-icon {
+    color: #ccc; /* Gris para íconos deshabilitados */
+    cursor: not-allowed; /* Indica que no se puede hacer clic */
+  }

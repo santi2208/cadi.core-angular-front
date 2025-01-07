@@ -15,6 +15,7 @@ import { AccountPeriodBalanceGridComponent } from '../../components/account-peri
 import { ImportMovementComponent } from '../../components/import-movement/import-movement.component';
 import { ImportLinesComponent } from '../../components/import-lines/import-lines.component';
 import { BatchesGridComponent } from '../../components/batches-grid/batches-grid.component';
+import { PeriodsGridComponent } from '../../components/periods-grid/periods-grid.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -32,4 +33,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'import-movement', component: ImportMovementComponent },
     { path: 'import-lines', component: ImportLinesComponent },
     { path: 'batches-grid', component: BatchesGridComponent },
+    { path: 'periods-grid', component: PeriodsGridComponent },
 ];

@@ -1,0 +1,124 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger mb-4">
+          <h4 class="card-title">Periodos</h4>
+          <p class="card-category">
+            Listado de todos los períodos en el sistema
+          </p>
+        </div>
+
+        <!--  -->
+        <div *ngIf="periods?.length > 0">
+          <div class="col-md-6 mb-4">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Buscar..."
+              [(ngModel)]="searchTerm"
+              (input)="onSearchTermChange()"
+            />
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th (click)="onSort('id')">ID</th>
+                    <th (click)="onSort('startDate')">Fecha Inicio</th>
+                    <th (click)="onSort('endDate')">Fecha Fin</th>
+                    <th>Está cerrado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let period of filteredPeriods">
+                    <td>{{ period.id }}</td>
+                    <td>{{ period.startDate | date }}</td>
+                    <td>{{ period.endDate | date }}</td>
+                    <td>{{ period.isClosed ? "SI" : "NO" }}</td>
+                    <td class="action-icons">
+                      <!-- Icono Cerrar periodo -->
+                      <span
+                        class="material-icons"
+                        [ngClass]="{
+                          'enabled-icon': !period.isClosed,
+                          'disabled-icon': period.isClosed
+                        }"
+                        (click)="!period.isClosed && closePeriod(period.id)"
+                        title="Cerrar Periodo"
+                      >
+                        event_busy
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav>
+              <ul class="pagination">
+                <li
+                  class="page-item"
+                  [class.disabled]="currentPage === 1"
+                  (click)="onPageChange(currentPage - 1)"
+                >
+                  <a class="page-link">Anterior</a>
+                </li>
+                <li
+                  class="page-item"
+                  *ngFor="
+                    let page of [].constructor(
+                      Math.ceil(filteredPeriods.length / itemsPerPage)
+                    );
+                    let i = index
+                  "
+                  [class.active]="currentPage === i + 1"
+                  (click)="onPageChange(i + 1)"
+                >
+                  <a class="page-link">{{ i + 1 }}</a>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="
+                    currentPage ===
+                    Math.ceil(filteredPeriods.length / itemsPerPage)
+                  "
+                  (click)="onPageChange(currentPage + 1)"
+                >
+                  <a class="page-link">Siguiente</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div *ngIf="!periods || periods.length === 0">
+          <div class="d-flex justify-content-center align-items-center">
+            <form (ngSubmit)="onSubmit()" #fileForm="ngForm">
+              <div class="form-group col-md-12 mb-4">
+              <label for="newPeriod">Periodo</label>
+              <input
+                type="month"
+                class="form-control"
+                id="newPeriod"
+                name="newPeriod"
+                [(ngModel)]="newPeriod"
+                required
+              />
+              </div>
+            
+              <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="!newPeriod"
+              >
+              Crear Período
+              </button>
+            </form>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+    </div>
+  </div>
+</div>
