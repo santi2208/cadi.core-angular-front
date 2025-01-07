@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Period } from "app/dtos/common.interfaces";
 import { PeriodsService } from "app/services/periods/periods.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "periods-grid",
@@ -15,12 +16,36 @@ export class PeriodsGridComponent implements OnInit {
   searchTerm = "";
   sortColumn: keyof Period | "id" | "startDate" | "endDate" | "isClosed";
   sortDirection: "asc" | "desc" = "asc";
+  newPeriod: Date | null = null;
+
   public Math = Math;
 
-  constructor(private periodsService: PeriodsService) {}
+  constructor(
+    private periodsService: PeriodsService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
+  }
+
+  onSubmit(): void {
+    console.log(".........................");
+    if (this.newPeriod) {
+      const formattedPeriod = this.newPeriod.toString();
+      this.periodsService.createPeriod(formattedPeriod).subscribe({
+        next: (response) => {
+          this.snackBar.open(response.message, "Cerrar", { duration: 3000 });
+        },
+        error: (response) => {
+          this.snackBar.open(
+            `Error al crear periodo: ${response.error.message}`,
+            "Cerrar",
+            { duration: 3000 }
+          );
+        },
+      });
+    }
   }
 
   private loadData(): void {
@@ -108,5 +133,9 @@ export class PeriodsGridComponent implements OnInit {
 
   refreshData(): void {
     this.loadData();
+  }
+
+  createPeriod(): void {
+    console.log("create period");
   }
 }
