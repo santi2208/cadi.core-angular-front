@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LoginResponse } from 'app/dtos/auth.interfaces';
+import { environment } from "environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   
+  private apiBaseUrl = environment.apiBaseUrl;
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
@@ -22,7 +24,8 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    const loginUrl = 'http://localhost:5179/api/Auth/login'; 
+    
+    const loginUrl = `${this.apiBaseUrl}/Auth/login`;
     return this.http.post<LoginResponse>(`${loginUrl}`, { email: email, password })
       .pipe(tap(loginResponse => {
         if (loginResponse && loginResponse.token) {

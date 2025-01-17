@@ -3,16 +3,19 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { AccountPeriodBalanceDto } from "../../dtos/accounts.interfaces";
+import { environment } from "environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class AccountPeriodBalanceService {
-  private apiUrl = "http://localhost:5179/api/AccountPeriodBalance";
+  private apiBaseUrl = environment.apiBaseUrl;
+  
   constructor(private http: HttpClient) {}
   getAll(): Observable<AccountPeriodBalanceDto[]> {
+    const apiUrl = `${this.apiBaseUrl}/AccountPeriodBalance`;
     return this.http
-      .get<AccountPeriodBalanceDto[]>(this.apiUrl)
+      .get<AccountPeriodBalanceDto[]>(apiUrl)
       .pipe(catchError(this.handleError));
   }
 
