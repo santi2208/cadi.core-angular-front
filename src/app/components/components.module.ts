@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FooterComponent } from './footer/footer.component';
@@ -18,6 +18,7 @@ import { GenerateMovementsButtonComponent } from './generate-movements-button/ge
 import { BatchesGridComponent } from './batches-grid/batches-grid.component';
 import { PeriodsGridComponent } from './periods-grid/periods-grid.component';
 import { BatchDetailModalComponent } from './batch-detail-modal/batch-detail-modal.component';
+import { LoginComponent } from '../login/login.component';
 // import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
@@ -26,7 +27,8 @@ import { BatchDetailModalComponent } from './batch-detail-modal/batch-detail-mod
     RouterModule,
     FormsModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   declarations: [
     FooterComponent,
@@ -42,7 +44,8 @@ import { BatchDetailModalComponent } from './batch-detail-modal/batch-detail-mod
     GenerateMovementsButtonComponent,
     BatchesGridComponent,
     PeriodsGridComponent,
-    BatchDetailModalComponent
+    BatchDetailModalComponent,
+    LoginComponent
     // ,SpinnerComponent
   ],
   exports: [
