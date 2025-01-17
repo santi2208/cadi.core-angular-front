@@ -3,17 +3,20 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { AccountDto } from "app/dtos/accounts.interfaces";
+import { environment } from "environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class AccountService {
-  private apiUrl = "http://localhost:5179/api/Account";
+  private apiBaseUrl = environment.apiBaseUrl;
+  
 
   constructor(private http: HttpClient) {}
   getAll(): Observable<AccountDto[]> {
+    const apiUrl = `${this.apiBaseUrl}/Account`;
     return this.http
-      .get<AccountDto[]>(this.apiUrl)
+      .get<AccountDto[]>(apiUrl)
       .pipe(catchError(this.handleError));
   }
 

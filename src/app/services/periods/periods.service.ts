@@ -8,20 +8,22 @@ import { Observable, throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { Period } from "app/dtos/common.interfaces";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { environment } from "environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class PeriodsService {
+  private apiBaseUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
   getAll(): Observable<Period[]> {
-    let apiUrl = "http://localhost:5179/api/Periods";
+    const apiUrl = `${this.apiBaseUrl}/Periods`;
     return this.http.get<Period[]>(apiUrl).pipe(catchError(this.handleError));
   }
 
   closePeriod(periodId: number): Observable<any> {
-    const apiUrl = `http://localhost:5179/api/Periods/close?periodId=${periodId}`;
+    const apiUrl = `${this.apiBaseUrl}/Periods/close?periodId=${periodId}`;
     return this.http.post(apiUrl, null).pipe(
       tap(() => {
         this.snackBar.open("Se cerró el período exitosamente.", "Cerrar", {
@@ -35,7 +37,7 @@ export class PeriodsService {
   }
 
   createPeriod(date: string): Observable<any> {
-    const apiUrl = "http://localhost:5179/api/periods";
+    const apiUrl = `${this.apiBaseUrl}/periods`;
 
     const dateObj = new Date(date);
     const year = dateObj.getFullYear();

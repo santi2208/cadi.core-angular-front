@@ -8,19 +8,21 @@ import {
 import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { Batch } from "app/dtos/batches.interfaces";
+import { environment } from "environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class BatchService {
+  private apiBaseUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) {}
   approve(batchId: number): Observable<any> {
-    let apiUrl = `http://localhost:5179/api/Batch/Approve?batchId=${batchId}`;
+    const apiUrl = `${this.apiBaseUrl}/Batch/Approve?batchId=${batchId}`;
     return this.http.post(apiUrl, null);
   }
 
   getAll(): Observable<Batch[]> {
-    let apiUrl = `http://localhost:5179/api/Batch`;
+    let apiUrl = `${this.apiBaseUrl}/Batch`;
     return this.http.get<Batch[]>(apiUrl).pipe(catchError(this.handleError));
   }
 
