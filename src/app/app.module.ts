@@ -11,6 +11,7 @@ import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.compon
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { LoadingInterceptor } from "./interceptors/loading/loading.interceptor";
 import { SpinnerComponent } from './components/spinner/spinner.component'; // Importa el componente
+import { AuthInterceptor } from './interceptors/auth/auth-interceptor.service';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component'; // Im
       useClass: LoadingInterceptor,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

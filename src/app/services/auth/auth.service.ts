@@ -36,6 +36,15 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
+  
+  getToken(): string | null {
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const parsedUser = JSON.parse(currentUser);
+      return parsedUser.token;
+    }
+    return null;
+  }
 
   // isAuthenticated(): boolean {
   //   // Lógica para verificar si el usuario está autenticado
